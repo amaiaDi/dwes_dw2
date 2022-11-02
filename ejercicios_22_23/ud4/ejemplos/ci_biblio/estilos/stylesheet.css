@@ -1,0 +1,236 @@
+body {
+    font-family: "trebuchet ms", verdana, sans-serif;
+    font-size: 12px;
+    line-height: 1.5em;
+    color: #333;
+    background: #ffffff;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    width: 100%;
+}
+
+#header {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: 60px;
+    width: 100%;
+    background: #333;
+    background-image: url("../img/logo_cip_tafalla.gif");
+    background-repeat: no-repeat;
+    background-position:20px 0px;
+    padding-top: 8px;
+}
+#header h1 {
+    font-size: 30px;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    color: #fff;
+}
+
+
+#menu {
+    font-family: "trebuchet ms", verdana, sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    position: absolute;
+    height: 27px;
+    top: 60px;
+    left: 0px;
+    width: 100%;
+    padding: 0px;
+    color: #000000;
+    background-color: #eee
+}
+
+a:link {
+    text-decoration: underline;
+    color: #789;
+}
+
+a:visited {
+    text-decoration: none;
+    border-bottom: 1px dotted #369;
+    color: #375;
+}
+
+a:hover, a:active {
+    text-decoration: none;
+    border-bottom: 1px solid #036;
+    color: #000;
+}
+
+#container {
+    position: absolute;
+    top: 85px;
+    left: 0px;
+    background: #ffffff;
+    margin: 0 auto 0 auto;
+    text-align: left;
+    width: 100%;
+    height: 100%;
+}
+
+#bar {
+    float: left;
+    width: 200px;
+    background: #eee;
+    padding: 10px;
+    margin-right: 20px;
+    height: 100%;
+    font-size: 16px;
+}
+
+img {
+    border: 0;
+}
+
+#bar h1 {
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+}
+
+#main {
+    margin: 15px 15px 15px 240px;
+    padding: 15px 15px 15px 15px;
+    background: #FFFFFF;
+}
+
+
+table {
+    border: thin solid #cccccc;
+    background: #ffffff;
+}
+th {
+    letter-spacing: 2.5px;
+    background: #eeeeeee;
+    color: #000000;
+    text-transform: uppercase;
+    text-align: center;
+    border-top: thick solid #eeeeee;
+    border-bottom: thin solid #cccccc;
+}
+
+tr.head {
+    letter-spacing: 1.5px;
+    background: #dddddd;
+    color: #000000;
+    text-transform: uppercase;
+    border-top: thick solid #eeeeee;
+    border-bottom: thin solid #cccccc;
+}
+
+tr.body {
+    background: #ffffff;
+    color: #000000;
+}
+td {
+    border: thin solid #cccccc;
+    padding: 6px;
+    /* vertical-align: top; */
+    max-width: 350px;  /* Por la celda de descripcion de incidencia */
+}
+
+
+
+
+
+/*********************************************************/
+#columndisable {    
+    /* background: yellow;*/
+    color: #aaaaaa;
+}
+
+/*********************************************************/
+#sinborde table{
+    border:0;
+}
+
+#sinborde td{  
+    border: 0;
+}
+
+#sinborde th {
+    letter-spacing: 1.1px;
+    background: #eeeeee;
+    color: #000000;
+    text-transform: uppercase;
+    text-align: left;
+    border-bottom: thin solid #cccccc;
+}
+/*********************************************************/
+#titulo_izq {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    width: 150px;
+    color: #111111;
+}
+/*********************************************************/
+#notificacion {
+    font-size: 16px;
+    text-transform: uppercase;
+    color: blue;
+}
+#resultado {   
+    font-size: 14px;   
+    border-width:3px;
+    border-style:solid ;    
+    color: #789;
+    border-radius: 10px; 
+}
+
+
+/*********************************************************/
+#error {
+    font-size: 14px;
+    text-transform: uppercase;
+    color: red;
+}
+/**************************************************************/
+input[type="submit"]
+{
+    padding: 6px 12px 5px;
+    font-size: 14px;
+    background-color: #555555;
+    font-weight: bold;    
+    color: #ffffff;
+    border-radius: 30px;   
+    border: 1px solid #999;
+	
+}
+
+textarea
+{
+        width: 400px;
+	height: 120px;
+	border: 3px solid #cccccc;
+	padding: 5px;	
+        border-radius: 10px;   
+        background: #eeeeee;
+}
+
+input[type="text"]
+{
+    border: 2px solid #cccccc;
+    padding: 2px;	
+    border-radius: 1px;   
+    background: #eeeeee;    
+}
+
+select
+{
+    border: 2px solid #cccccc;
+    padding: 2px;	
+    border-radius: 5px;   
+    background: #eeeeee;    
+  
+}
+
+input[type="checkbox"]
+{  
+   
+}
+

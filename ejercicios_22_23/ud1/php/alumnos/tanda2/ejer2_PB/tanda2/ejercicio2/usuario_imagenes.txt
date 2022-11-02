@@ -1,0 +1,1 @@
+127.0.0.1: imagenes/2.jpg\timagenes/5.jpg\t

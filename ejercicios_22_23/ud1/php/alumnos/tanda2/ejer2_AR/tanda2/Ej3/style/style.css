@@ -1,0 +1,14 @@
+caption, #total{
+    background-color: lightgrey;
+    font-weight: bold;
+
+}
+
+table {
+    margin: 20px;
+    padding: 10px;
+}
+
+td {
+    padding: 5px;
+}

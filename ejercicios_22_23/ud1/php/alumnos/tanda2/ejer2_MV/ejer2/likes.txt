@@ -1,0 +1,2 @@
+::1:  casita.png 
+::1:  bordes.png  loremIpsum.png  portatil.png  reloj.png 

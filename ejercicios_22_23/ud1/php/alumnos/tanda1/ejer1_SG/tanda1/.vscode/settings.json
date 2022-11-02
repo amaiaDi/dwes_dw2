@@ -1,0 +1,9 @@
+{
+    "php.debug.executablePath": "C:/wamp/bin/php/php7.4.26/php.exe",
+    "php.validate.enable": true,
+    "php.validate.run": "onSave",
+    "php.validate.executablePath": "C:/wamp/bin/php/php7.4.26/php.exe",
+    "files.autoSave": "afterDelay",
+    "emmet.showSuggestionsAsSnippets": true,
+    "emmet.triggerExpansionOnTab": true
+}

@@ -1,0 +1,4 @@
+Google:http:\\www.google.es
+Pepsi:http:\\www.pepsi.com
+PHP:http:\\www.php.net
+Amazon:http:\\www.amazon.com

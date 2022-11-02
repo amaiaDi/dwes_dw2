@@ -1,0 +1,7 @@
+- Para poder crear relaciones externas, las tablas tienen que crearse con motor innodb
+
+--> En my.ini, poner:
+default-storage-engine=innodb
+
+--> Si ya tenemos tablas creadas, para cambiarles el motor:
+ALTER TABLE nombretabla ENGINE=InnoDB;

@@ -1,0 +1,2 @@
+euro_dolar  0.9867847   $
+dolar_euro  1.0133923   €

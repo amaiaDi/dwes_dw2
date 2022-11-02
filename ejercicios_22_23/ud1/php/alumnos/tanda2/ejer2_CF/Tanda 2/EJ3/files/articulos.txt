@@ -1,0 +1,9 @@
+Tornillo TY200;0.15
+Arandela;0.03
+Bisagra HG209;1.34
+Mal Formato 1;0.p4
+Mal Formato 2:0.04
+Llave Allen;0,6
+Patata;2.23
+Manzana;0.50
+pera;0.25

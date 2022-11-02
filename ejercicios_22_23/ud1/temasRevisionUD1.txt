@@ -1,0 +1,6 @@
+TEMAS A REVISAR
+
+* Arrays numericos y con clave valor
+* variables globales dentro de función
+* mover filas por el codigo arriba y abajo con juego de claves del teclado
+* if en una unica linea

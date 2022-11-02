@@ -1,0 +1,4 @@
+::1: paisaje_elado.jpg 
+::1: cascadas.jpg lago.jpg paisaje_elado.jpg 
+::1: cascadas.jpg 
+::1: DIRIMG/cascadas.jpg 

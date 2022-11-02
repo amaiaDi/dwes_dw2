@@ -1,0 +1,10 @@
+-- Historial del Chat --
+user;EJ4;Hola buenas, esto es una prueba
+user;EJ4;Prueba 2     
+user;EJ4;Triste :( Feliz :)
+AnderZorri;EJ4;Hola :)k tal todo?
+AnderZorri;EJ4;txema, puto inútil uwu
+AnderZorri;EJ4;User, eres un pellizcacristales :(
+ElenaNito;EJ4;Tengo sueño :(
+ElenaNito;EJ4;user, eres un hijo de fruta :)
+ElenaNito;EJ4;uwU

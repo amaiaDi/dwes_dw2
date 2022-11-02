@@ -1,0 +1,11 @@
+* {
+    box-sizing: border-box;
+  }
+.container:after {
+    display: table;
+    clear: both;
+}
+.columna {
+    float: left;
+    padding: 10px;
+}

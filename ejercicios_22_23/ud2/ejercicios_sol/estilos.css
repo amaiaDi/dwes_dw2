@@ -1,0 +1,28 @@
+.botones{
+    float:right;
+}
+
+form{
+    float:left;
+}
+
+div {
+    width: 40%;
+}
+
+tr{
+    margin:10em;
+}
+
+.error{
+    font-style: italic;
+    color:red;
+}
+
+#fondo_azul{
+    border-width: 10em;
+    border-radius: 10em;
+    border-color: aqua;
+    color: blue;
+    background-color: aquamarine;
+}

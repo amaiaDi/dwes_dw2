@@ -1,0 +1,7 @@
+pera;0.3
+piña;0.4
+sandia;1.2
+melon;2.3
+manzana;0.9
+uvas;10
+granada;1

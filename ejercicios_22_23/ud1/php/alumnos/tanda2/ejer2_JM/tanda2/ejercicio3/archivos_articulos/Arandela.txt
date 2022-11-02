@@ -1,0 +1,4 @@
+Caracteristicas Arandela:
+
+- Diametro
+- Ancho

@@ -1,0 +1,4 @@
+aqui un tabulador:  despues del tabulador
+aqui una eñe y otra eñe
+y aqui un titulo <h2>TITULO</h2>
+y aqui nada

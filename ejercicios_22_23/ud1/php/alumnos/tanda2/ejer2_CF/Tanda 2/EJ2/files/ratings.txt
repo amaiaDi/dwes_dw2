@@ -1,0 +1,5 @@
+-- All ratings --
+
+172.20.104.19:	../images/05.jpg ../images/09.jpg 
+172.20.104.19:	../images/09.jpg ../images/06.jpg ../images/07.jpg 
+192.168.1.138:	../images/05.jpg 

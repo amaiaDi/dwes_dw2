@@ -1,0 +1,14 @@
+25;Dolar-Euro;25.252525252525€
+25;Euro-Dolar;24.75$
+25;Dolar-Euro;25.252525252525€
+25;Dolar-Euro;25.252525252525€
+25;Euro-Dolar;24.75$
+25;Euro-Dolar;24.75$
+25;Euro-Dolar;24.75$
+25;Dolar-Euro;25.252525252525€
+25;Dolar-Euro;25.252525252525€
+25;Dolar-Euro;25.252525252525€
+25;Dolar-Euro;25.252525252525€
+25;Euro-Dolar;24.75$
+25;Dolar-Euro;25.252525252525€
+25;Dolar-Euro;25.252525252525€

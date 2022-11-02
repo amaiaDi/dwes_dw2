@@ -1,0 +1,18 @@
+tr{
+    margin:10em;
+}
+
+.error{
+    font-style: italic;
+    color:red;
+}
+
+.izquierda{
+    width: 50%;
+    float:left;
+}
+
+.derecha{
+    width: 50%;
+    float:right;
+}

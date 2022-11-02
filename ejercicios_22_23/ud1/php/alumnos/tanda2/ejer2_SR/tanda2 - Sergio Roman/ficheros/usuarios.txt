@@ -1,0 +1,4 @@
+sergio;1234
+hola;adios
+admin;password
+feo;asdsada

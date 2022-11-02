@@ -1,0 +1,16 @@
+Alubias rojas;primero;10
+Ensalada de tomate;primero;8
+Macarrones con tomate;primero;12
+Coliflor;primero;10
+Filetes de lomo con pimientos;segundo;12
+Bacalao pil pil;segundo;15
+Huevos fritos con patatas;segundo;12
+Muslo de pollo asado;segundo;13
+Arroz con leche;postre;6
+Yogurt;postre;5
+Tarta de queso;postre;6
+Sorbete de limon;postre;5
+Coca cola;bebida;2
+Cerveza;bebida;2
+Kalimotxo;bebida;3
+Agua;bebida;1

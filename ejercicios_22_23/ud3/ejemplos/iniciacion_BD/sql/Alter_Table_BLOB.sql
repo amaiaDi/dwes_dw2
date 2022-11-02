@@ -1,0 +1,1 @@
+ALTER TABLE restaurante.alimentos ADD fichero BLOB NULL;

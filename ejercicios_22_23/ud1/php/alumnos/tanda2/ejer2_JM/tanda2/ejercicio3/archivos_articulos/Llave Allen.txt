@@ -1,0 +1,4 @@
+Caracteristicas LLave Allen:
+
+- Tamanio
+- Numero

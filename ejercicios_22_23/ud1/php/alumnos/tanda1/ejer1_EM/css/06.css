@@ -1,0 +1,19 @@
+table, tr, td {
+    border: 1px solid black;
+    text-align: center;
+    
+}
+td {
+    width: 50px;
+    border-style: none solid solid none;
+}
+
+
+
+tr:nth-child(odd) {
+    background-color: rgba(128, 128, 128, 0.384);
+}
+
+tr:first-child {
+    background-color: white;
+}

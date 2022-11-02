@@ -1,0 +1,15 @@
+***ASPECTO DE CABECERA, BARRA Y MAIN***
+** DOS FORMAS DE HACERLO:
+
+ - index.php siempre tiene el contenido HTML + un añadido a a url como paarametro "ira" para condicionar lo que carga en el main
+ - llamamos a cada fichero php que nos interesee y le precargamos la cabecera.php y pie.php para que mantengan la estructura y el bloque HTML lo ponemos en un único sitio en la cabecera **Cudiado aqui no cargar HTML en el resto de paginas HTML
+
+
+***CONSULTAS DE BASE DE DATOS***
+--Elegir una interfaz y mantenerla en todo el proyecto IP o IOO
+--Si tiene mas de 1 imagen hay que limitarlo
+select it.id, it.id_user, it.nombre, it.preciopartida as pp, it.fechafin, 
+(select imagen from ud03.imagenes where id_item = it.id limit 1) as imagen, 
+(select count(*) from ud03.pujas p3 where p3.id_item = it.id) as cont, 
+(select round(max(cantidad),2) from ud03.pujas where id_item = it.id) as cantidad 
+from ud03.items it where now() < it.fechafin;

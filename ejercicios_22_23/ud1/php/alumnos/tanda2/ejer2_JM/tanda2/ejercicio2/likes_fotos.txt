@@ -1,0 +1,4 @@
+
+192.168.56.1:arbol.webp  carretera.webp  
+192.168.56.1:puente.jpg  via_tren.webp  
+192.168.56.1:arbol.webp  

@@ -1,0 +1,4 @@
+http://www.google.com,Google
+http://www.youtube.com,Youtube
+http://www.twitter.com,Twitter
+http://playvalorant.com,Valorant
