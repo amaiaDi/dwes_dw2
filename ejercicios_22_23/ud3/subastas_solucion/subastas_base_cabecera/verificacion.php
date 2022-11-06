@@ -2,7 +2,7 @@
     /**
      * Pagina de verificacion del mail que se carga en el div de contenido main
      */
-    include_once("libsubastas.php");
+    include_once("libreria_subastas.php");
     if(isset($_GET['email']) && isset($_GET['cadena_verif'])){
         $mail = $_GET['email'];
         $cadena_verif = $_GET['cadena_verif'];

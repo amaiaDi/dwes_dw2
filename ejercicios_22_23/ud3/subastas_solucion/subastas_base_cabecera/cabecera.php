@@ -5,7 +5,7 @@
      */
     session_start();
     include_once "config.php";
-    include_once "libsubastas.php";
+    include_once "libreria_subastas.php";
     $con = mysqli_connect(DB_HOST, DB_USER, DB_PASS);
     mysqli_select_db($con, DB_DATABASE);
     if(isset($_SESSION['usuario'])){
