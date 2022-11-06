@@ -31,7 +31,7 @@
 
     function idUsuarioEmail($mail){
         global $con;
-        $mail_sql = "select id from usuarios where email = '$mail'";
+        $mail_sql = SQL_ID_USUARIO_BY_EMAIL." '$mail'";
         $mail_result = mysqli_query($con, $mail_sql);
         while($mail_row = mysqli_fetch_assoc($mail_result)){
             $id = $mail_row['id'];
@@ -41,27 +41,27 @@
 
     function darUsuarioAlta($id_user){
         global $con;
-        $mail_sql = "update usuarios set activo = '1' where id = $id_user";
+        $mail_sql = SQL_UPDATE_USUARIO_ACTIVO_WHERE_ID." $id_user";
         mysqli_query($con, $mail_sql);
         if(mysqli_errno($con)) die(mysqli_error($con)); 
     }
 
     function insertarUsuario($usuario, $nombre, $pass, $email, $cadena){
         global $con;
-        $insert_sql = "INSERT INTO usuarios (id, username, nombre, password, email, cadenaverificacion, activo, falso) VALUES (NULL, '$usuario', '$nombre', '$pass', '$email', '$cadena', '0', '1');";
+        $insert_sql = SQL_INSERT_USUARIO." NULL, '$usuario', '$nombre', '$pass', '$email', '$cadena', '0', '1');";
         mysqli_query($con, $insert_sql);
         if(mysqli_errno($con)) die(mysqli_error($con)); 
     }
 
     function usuarioExiste($usuario){
         global $con;
-        $buscar_sql = "SELECT username FROM usuarios;";
+        $buscar_sql = SQL_DATOS_USUARIO_POR_USERNAME." '$usuario'";
         $buscar_result = mysqli_query($con, $buscar_sql);
-        while($buscar_row = mysqli_fetch_assoc($buscar_result)){
-            if($buscar_row['username'] == $usuario){
-                return true;
-            }
+       
+        if($buscar_result['num_rows'] != 0){
+            return true;
         }
+       
         return false;
     }
 
@@ -70,7 +70,7 @@
     //          3: usuario o contraseña incorrectos
     function comprobarLogin($usuario, $password){
         global $con;
-        $comprobar_sql = "SELECT username, password, activo FROM usuarios;";
+        $comprobar_sql = SQL_USERNAME_PASSWORD_USUARIOS;
         $comprobar_result = mysqli_query($con, $comprobar_sql);
         while($comprobar_row = mysqli_fetch_assoc($comprobar_result)){
             $usu = $comprobar_row['username'];
@@ -92,7 +92,7 @@
     function obtenerCategorias(){
         global $con;
         $categorias = [];
-        $cat_sql = "SELECT * FROM CATEGORIAS ORDER BY categoria ASC;";
+        $cat_sql = SQL_TODAS_CATEGORIAS;
         $cat_result = mysqli_query($con,$cat_sql);
         while($cat_row = mysqli_fetch_assoc($cat_result)) {
             array_push($categorias, ucfirst($cat_row['categoria']));
@@ -102,10 +102,7 @@
 
     function cantidadPujas($item_id){
         global $con;
-        $count_pujas_sql = "
-        select count(pujas.id) cuenta
-        from pujas
-        where id_item = $item_id;";
+        $count_pujas_sql = SQL_COUNT_PUJAS." $item_id;";
         $pujas_result = mysqli_query($con, $count_pujas_sql);
         while($pujas_row = mysqli_fetch_assoc($pujas_result)){
             $cuenta = $pujas_row['cuenta'];
@@ -115,17 +112,13 @@
 
     function precioMaximo($item_id){
         global $con;
-        $precio_sql = "select preciopartida from items  where id = $item_id";
+        $precio_sql = SQL_PRECIOPARTIDA_ITEMS." $item_id";
         $precio_result = mysqli_query($con, $precio_sql);
         while($precio_row = mysqli_fetch_assoc($precio_result)){
             $precio_item = $precio_row['preciopartida'];
         }
 
-        $precio_max_sql = "
-                select max(cantidad) cant
-                from pujas
-                where pujas.id_item = $item_id;
-            ";
+        $precio_max_sql = SQL_MAX_CANTIDAD_PUJA." $item_id";
         $precio_max_result = mysqli_query($con, $precio_max_sql);
         while($precio_row = mysqli_fetch_assoc($precio_max_result)){
             $precio_max = $precio_row['cant'];
@@ -141,7 +134,7 @@
 
     function fechaFinPuja($item_id){
         global $con;
-        $fecha_sql = "select fechafin from items  where id = $item_id";
+        $fecha_sql = SQL_FECHAFIN_ITEMS." $item_id";
         $fecha_result = mysqli_query($con, $fecha_sql);
         while($fecha_row = mysqli_fetch_assoc($fecha_result)){
             $fecha = $fecha_row['fechafin'];
@@ -152,7 +145,7 @@
 
     function obtenerImagenes($item_id){
         global $con;
-        $img_sql = "select imagen from imagenes where id_item = $item_id";
+        $img_sql = SQL_IMAGEN_BY_ID." $item_id";
         $img_result = mysqli_query($con, $img_sql);
         $arr_img = [];
         while($img_row = mysqli_fetch_assoc($img_result)){
@@ -164,7 +157,7 @@
 
     function obtenerDescripcion($item_id){
         global $con;
-        $desc_sql = "select descripcion from items where id = $item_id";
+        $desc_sql = SQL_DESCRIPCION_ITEMS_BY_ID." $item_id";
         $desc_result = mysqli_query($con, $desc_sql);
         while($desc_row = mysqli_fetch_assoc($desc_result)){
             $desc = $desc_row['descripcion'];
@@ -175,12 +168,8 @@
     function obtenerHistorial($item_id){
         global $con;
         $historial = [];
-        $histo_sql = "
-        select username, cantidad 
-        from pujas
-        inner join usuarios on usuarios.id = id_user
-        where id_item = $item_id order by cantidad desc;
-        ";
+        $histo_sql = SQL_USERNAME_CANTIDAD_PUJAS_USUARIOS_BY_ID." $item_id ".SQL_ORDERBY_CANTIDAD_DESC;
+
         $histo_result = mysqli_query($con, $histo_sql);
         while($histo_row = mysqli_fetch_assoc($histo_result)){
             $moneda = TIPO_MONEDA;
@@ -192,7 +181,7 @@
 
     function idUsuario($nombre){
         global $con;
-        $usu_sql = "select id from usuarios where username = '$nombre';";
+        $usu_sql = SQL_ID_FROM_USUARIOS_BY_USERNAME."'$nombre';";
         $usu_result = mysqli_query($con, $usu_sql);
         while($usu_row = mysqli_fetch_assoc($usu_result)){
             $id = $usu_row['id'];
@@ -202,7 +191,7 @@
 
     function nombreUsuario($id_usuario){
         global $con;
-        $usu_sql = "select nombre from usuarios where id = '$id_usuario';";
+        $usu_sql = SQL_NOMBRE_FROM_USUARIOS_BY_ID."'$id_usuario';";
         $usu_result = mysqli_query($con, $usu_sql);
         while($usu_row = mysqli_fetch_assoc($usu_result)){
             $nombre = $usu_row['nombre'];
@@ -213,7 +202,7 @@
     function idCategoria($nombre){
         global $con;
         $nombre = strtolower($nombre);
-        $cat_sql = "select id from categorias where categoria = '$nombre';";
+        $cat_sql = SQL_ID_CATEGORIAS_BY_CATEGORIA."'$nombre';";
         $cat_result = mysqli_query($con, $cat_sql);
         while($cat_row = mysqli_fetch_assoc($cat_result)){
             $id = $cat_row['id'];
@@ -223,7 +212,7 @@
 
     function idItem($nombre){
         global $con;
-        $item_sql = "select id from items where nombre = '$nombre';";
+        $item_sql = SQL_ID_ITEMS_BY_NOMBRE."'$nombre';";
         $item_result = mysqli_query($con, $item_sql);
         while($item_row = mysqli_fetch_assoc($item_result)){
             $id = $item_row['id'];
@@ -233,7 +222,7 @@
 
     function nombreItem($id){
         global $con;
-        $item_sql = "select nombre from items where id = '$id';";
+        $item_sql = SQL_NOMBRE_ITEMS_BY_ID."'$id';";
         $item_result = mysqli_query($con, $item_sql);
         while($item_row = mysqli_fetch_assoc($item_result)){
             $nombre = $item_row['nombre'];
