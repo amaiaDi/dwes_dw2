@@ -23,7 +23,7 @@ const TITULO_EDITAR_ITEM="Editar Item";
 const TITULO_NOMBRE_ITEM="Nombre item";
 
 //textos
-const TEXTO_NO_IMAGEN="NO_IMAGEN";
+const TEXTO_NO_IMAGEN="NO IMAGEN";
 const TEXTO_PRECIO_SALIDA="Precio de salida";
 const TEXTO_BAJAR="BAJAR";
 const TEXTO_SUBIR="SUBIR";

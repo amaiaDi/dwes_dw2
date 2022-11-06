@@ -58,7 +58,7 @@
         $buscar_sql = SQL_DATOS_USUARIO_POR_USERNAME." '$usuario'";
         $buscar_result = mysqli_query($con, $buscar_sql);
        
-        if($buscar_result['num_rows'] != 0){
+        if(mysqli_num_rows($buscar_result) != 0){
             return true;
         }
        

@@ -17,14 +17,14 @@
     $item_result = mysqli_query($con, $item_sql);
 ?> 
 
-    <h1>TITULO_ITEMS_DISPONIBLE</h1>
+    <h1><?=TITULO_ITEMS_DISPONIBLE?></h1>
     <table>
        <tr>
-            <th>TITULO_IMAGEN</th>
-            <th>TITULO_ITEM</th>
-            <th>TITULO_PUJAS</th>
-            <th>TITULO_PRECIO</th>
-            <th>TITULO_PUJAS_HASTA</th>
+            <th><?=TITULO_IMAGEN?></th>
+            <th><?=TITULO_ITEM?></th>
+            <th><?=TITULO_PUJAS?></th>
+            <th><?=TITULO_PRECIO?></th>
+            <th><?=TITULO_PUJAS_HASTA?></th>
         </tr>
         <?php      
         while($item_row = mysqli_fetch_assoc($item_result)){
@@ -34,7 +34,7 @@
             // imagen 
             echo "<td>";
             if($item_row['imagen'] == null){
-                echo "TEXTO_NO_IMAGEN";
+                echo TEXTO_NO_IMAGEN;
             } else {
                 $imagen = CARPETA_IMAGENES . "/" . $item_row['imagen'];
                 echo "<img src='$imagen' class='imagen'/>";

@@ -7,8 +7,6 @@
      */
     include_once "config.php";
 
-    $usuario ="";
-
     if(isset($_SESSION['usuario'])){
         $usuario = $_SESSION['usuario'];
     }
