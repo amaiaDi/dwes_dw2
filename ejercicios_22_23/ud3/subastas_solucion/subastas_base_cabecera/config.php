@@ -45,8 +45,7 @@ const SQL_MAX_CANTIDAD_PUJA="select max(cantidad) cant from pujas where pujas.id
 const SQL_FECHAFIN_ITEMS="select fechafin from items  where id = ";
 const SQL_IMAGEN_BY_ID="select imagen from imagenes where id_item =";
 const SQL_DESCRIPCION_ITEMS_BY_ID="select descripcion from items where id =";
-const SQL_USERNAME_CANTIDAD_PUJAS_USUARIOS_BY_ID="select username, cantidad from pujasinner 
-                                                join usuarios on usuarios.id = id_user where id_item = ";
+const SQL_USERNAME_CANTIDAD_PUJAS_USUARIOS_BY_ID="select username, cantidad from pujas inner join usuarios on usuarios.id = id_user where id_item = ";
 const SQL_ID_FROM_USUARIOS_BY_USERNAME="select id from usuarios where username =";
 const SQL_NOMBRE_FROM_USUARIOS_BY_ID="select nombre from usuarios where id =";
 const SQL_ID_CATEGORIAS_BY_CATEGORIA="select id from categorias where categoria = ";
