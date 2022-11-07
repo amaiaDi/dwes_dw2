@@ -6,6 +6,9 @@
     $con = mysqli_connect(DB_HOST,DB_USER,DB_PASS);
     mysqli_select_db($con, DB_DATABASE);
 
+    /**
+     * Función para crear cadena de verificación
+     */
     function crearCadenaVerificacion(){
         $randomstring="";
         for($i = 0; $i < 16; $i++) {
@@ -14,7 +17,9 @@
         return $randomstring;
     }
 
-    
+    /**
+     * Función para comprobar Mail
+     */
     function comprobarMail($mail, $cadena_verif){
         global $con;
         $mail_sql = SQL_REGISTRO_EMAIL." '$mail'";
@@ -29,6 +34,9 @@
         return false;
     }
 
+    /**
+     * Función para obtener el ID de usuaario mediante el email
+     */
     function idUsuarioEmail($mail){
         global $con;
         $mail_sql = SQL_ID_USUARIO_BY_EMAIL." '$mail'";
@@ -38,7 +46,9 @@
         }
         return $id;
     }
-
+    /**
+     * Función para activar el usuario una vez registrado
+     */
     function darUsuarioAlta($id_user){
         global $con;
         $mail_sql = SQL_UPDATE_USUARIO_ACTIVO_WHERE_ID." $id_user";
@@ -46,6 +56,9 @@
         if(mysqli_errno($con)) die(mysqli_error($con)); 
     }
 
+    /**
+     * Función para insetar usuario
+     */
     function insertarUsuario($usuario, $nombre, $pass, $email, $cadena){
         global $con;
         $insert_sql = SQL_INSERT_USUARIO." NULL, '$usuario', '$nombre', '$pass', '$email', '$cadena', '0', '1');";
@@ -53,6 +66,9 @@
         if(mysqli_errno($con)) die(mysqli_error($con)); 
     }
 
+    /**
+     * Función para comprobar si el usuario existe
+     */
     function usuarioExiste($usuario){
         global $con;
         $buscar_sql = SQL_DATOS_USUARIO_POR_USERNAME." '$usuario'";
@@ -64,7 +80,9 @@
        
         return false;
     }
-
+    /**
+     * Función para comprobar usuario y password de logueo
+     */
     // devuelve 1: usuario y contraseña correctos, usuario verificado
     //          2: usuario y contraseña correctos, usuario NO verificado
     //          3: usuario o contraseña incorrectos
@@ -88,7 +106,9 @@
         return 3;
     }
 
-
+    /**
+     * Función para obtener listado de categoias
+     */
     function obtenerCategorias(){
         global $con;
         $categorias = [];
@@ -100,6 +120,9 @@
         return $categorias;
     }
 
+    /**
+     * Función para obtener el numero de pujas
+     */
     function cantidadPujas($item_id){
         global $con;
         $count_pujas_sql = SQL_COUNT_PUJAS." $item_id;";
@@ -110,6 +133,9 @@
         return $cuenta;
     }
 
+    /**
+     * Función para obtener el precio maximo de una puja en base al id de item
+     */
     function precioMaximo($item_id){
         global $con;
         $precio_sql = SQL_PRECIOPARTIDA_ITEMS." $item_id";
@@ -132,6 +158,9 @@
         return $precio;
     }
 
+    /**
+     * Función para modificar la fecha de fin de puja
+     */
     function fechaFinPuja($item_id){
         global $con;
         $fecha_sql = SQL_FECHAFIN_ITEMS." $item_id";
@@ -142,7 +171,9 @@
         return $fecha;
     }
 
-
+    /**
+     * Función para obtener imagenes en base al id de item
+     */
     function obtenerImagenes($item_id){
         global $con;
         $img_sql = SQL_IMAGEN_BY_ID." $item_id";
@@ -155,6 +186,9 @@
         return $arr_img;
     }
 
+     /**
+     * Función para obtener la descripción de item en base al id
+     */
     function obtenerDescripcion($item_id){
         global $con;
         $desc_sql = SQL_DESCRIPCION_ITEMS_BY_ID." $item_id";
@@ -165,6 +199,9 @@
         return $desc;
     }
 
+    /**
+     * Función para obtener el Historial  en base al id de item odenado por cantidad de fora descendente
+     */
     function obtenerHistorial($item_id){
         global $con;
         $historial = [];
@@ -179,6 +216,9 @@
         return $historial;
     }
 
+    /**
+     * Función para obtener el id de usuario por username
+     */
     function idUsuario($nombre){
         global $con;
         $usu_sql = SQL_ID_FROM_USUARIOS_BY_USERNAME."'$nombre';";
@@ -189,6 +229,9 @@
         return $id;
     }
 
+     /**
+     * Función para obtener el nombre de usuario por id
+     */
     function nombreUsuario($id_usuario){
         global $con;
         $usu_sql = SQL_NOMBRE_FROM_USUARIOS_BY_ID."'$id_usuario';";
@@ -199,6 +242,9 @@
         return $nombre;
     }
 
+     /**
+     * Función para obtener el id de categoria por nombre de categoria
+     */
     function idCategoria($nombre){
         global $con;
         $nombre = strtolower($nombre);
@@ -210,6 +256,9 @@
         return $id;
     }
 
+     /**
+     * Función para obtener el id de item por nombre
+     */
     function idItem($nombre){
         global $con;
         $item_sql = SQL_ID_ITEMS_BY_NOMBRE."'$nombre';";
@@ -220,6 +269,9 @@
         return $id;
     }
 
+     /**
+     * Función para obtener el nombre en base al id de items
+     */
     function nombreItem($id){
         global $con;
         $item_sql = SQL_NOMBRE_ITEMS_BY_ID."'$id';";
@@ -230,6 +282,9 @@
         return $nombre;
     }
     
+     /**
+     * Función para insertar una puja
+     */
     function insertarPuja($id_item, $usuario, $cantidad){
         global $con;
         $id_user = idUsuario($usuario);
@@ -239,6 +294,9 @@
         if(mysqli_errno($con)) die(mysqli_error($con)); 
     }
 
+     /**
+     * Función para contar el numeroo de pujas en basae a la fecha, id item e id usuario
+     */
     function pujasUsuario($id_item, $usuario){
         global $con;
         $id_user = idUsuario($usuario);
@@ -251,7 +309,9 @@
         return $contar;
     }
 
-
+    /**
+     * Función para cargar fechas en base al tipo
+     */
     function cargarFecha($tipo){
         $tipos = [
             "dia" => 31,
@@ -279,6 +339,9 @@
         return $resultado;
     }
 
+    /**
+     * Función para crear  la fecha completa
+     */
     function crearFechaCompleta(){
         $tipos = ["dia", "mes", "anio", "hora", "minutos"];
         foreach($tipos as $tipo){
@@ -291,6 +354,9 @@
         }
     }
 
+     /**
+     * Función para verificar el formulario de nuevo item
+     */
     function verificarNuevoItem($nombre, $descripcion, $precio, $fecha){
         $mensaje_error = "";
         if($fecha < time()) $mensaje_error .= "<p>* Fecha incorrecta</p>";
@@ -301,6 +367,9 @@
         return $mensaje_error;
     }
 
+     /**
+     * Función para insertar un nuevo item
+     */
     function insertarItem($id_categoria, $id_usuario, $nombre, $precio, $descripcion, $fecha){
         global $con;
         $insertar_sql = SQL_INSERT_ITEMS."NULL, '$id_categoria', '$id_usuario', '$nombre', '$precio', 
@@ -309,6 +378,9 @@
         if(mysqli_errno($con)) die(mysqli_error($con)); 
     }
 
+    /**
+     * Función para TODO-COMPROBAR FUNCIONAMieNTO
+     */
     function esDuenio($usuario, $id_item){
         global $con;
         $id_usuario = idUsuario($usuario);
@@ -323,6 +395,9 @@
         return false;
     }
 
+     /**
+     * Función para modificar el precio de partida de un item en case a su id de item
+     */
     function modificarPrecio($id_item, $cantidad, $precio_anterior, $tipo){
         global $con;
         if($tipo == "bajar") $nuevo_precio = $precio_anterior - $cantidad ;
@@ -332,6 +407,9 @@
         if(mysqli_errno($con)) die(mysqli_error($con)); 
     }
 
+     /**
+     * Función para posponer la fecha de fin de puja
+     */
     function posponer($tiempo, $id_item){
         global $con;
         $fecha = fechaFinPuja($id_item);
@@ -342,7 +420,9 @@
         mysqli_query($con, $posp_sql);
     }
 
-    
+     /**
+     * Función para obtener de la imagen
+     */
     function nombreImagen($nombre_img, $id_item){
         global $con;
         $partir_nombre = explode(".", $nombre_img);
@@ -381,6 +461,9 @@
         return $nombre_final;
     }
     
+     /**
+     * Función para insertar ruta de imagen en BD
+     */
     function insertarImagen($id_item, $nombre_imagen){
         global $con;
         $ins_img_sql = SQL_INSERT_IMAGES."(null, $id_item, '$nombre_imagen');";
@@ -388,19 +471,26 @@
         if(mysqli_errno($con)) die(mysqli_error($con)); 
     }
     
-    
+     /**
+     * Función eliminar imagen de BD en base a la ruta
+     */
     function eliminarImagenBBDD($ruta){
         global $con;
         $eliminar_sql = SQL_DELETE_IMAGENES_BY_IMAGEN."'$ruta'";
         mysqli_query($con, $eliminar_sql);
     }
 
+     /**
+     * Función para eliminar la imagen de la ruta de local
+     */
     function eliminarImagenLocal($ruta){
         $ruta_completa = "img/" . $ruta;
         unlink($ruta_completa);
     }
 
-
+    /**
+     * Función para obtener el listado de subastas vencidas
+     */
     function subastasVencidas(){
         global $con;
         $arr_subastas = [];
@@ -416,6 +506,9 @@
         return $arr_subastas;
     }
 
+     /**
+     * Función para obtener el valor maximo de la puja
+     */
     function pujaMaxima($id_item){
         global $con;
         $puja_sql = SQL_IDUSER_CATIDAD_PUJAS_BY_IDITEM." $id_item and cantidad = (".SQL_MAX_CANTIDAD_PUJAS_BY_IDITEM." $id_item);";
@@ -427,6 +520,9 @@
         return $id_user_puja_max;
     }
 
+     /**
+     * Función para obtener pujas en base a un id de item
+     */
     function obtenerPujas($item_id){
         global $con;
         $arr_pujas = [];
@@ -438,12 +534,18 @@
         return $arr_pujas;
     }
 
+     /**
+     * Función para eliminar pujas segun el id de puja
+     */
     function eliminarPujas($id_puja){
         global $con;
         $eliminar_sql = SQL_DELETE_PUJAS_BY_ID."'$id_puja';";
         mysqli_query($con, $eliminar_sql);
     }
 
+     /**
+     * Función para eliminar items en base al id de item
+     */
     function eliminarItem($id_item){
         // imagenes y pujas tienen clave ajena que apunta a la primaria de items
         // por ello tenemos que eliminar antes las imagenes y las pujas
@@ -465,6 +567,9 @@
         mysqli_query($con, $eliminar_sql);
     }
 
+    /**
+     * Función para listado todos items
+     */
     function obtenerTodosItems(){
         global $con;
         $arr_items = [];
@@ -476,6 +581,9 @@
         return $arr_items;
     }
 
+    /**
+     * Función paraobtener el listado de subastas a punto de vencer
+     */
     function subastasAPuntoVencer(){
         global $con;
         $arr_subastas = [];
@@ -492,6 +600,9 @@
         return $arr_subastas;
     }
 
+    /**
+     * Función para obtener el precio de un item en base al id de item
+     */
     function precioItem($id_item){
         global $con;
         $precio_sql = SQL_PRECIOPATIDA_ITEMS_BY_ID."$id_item;";
@@ -502,6 +613,9 @@
         return $precio;
     }
 
+    /**
+     * Función para lobtener la fecha y hora de vencimiento de un item en base a su id
+     */
     function venceEn($id_item){
         global $con;
         $vence_sql = SQL_FECHAFIN_ITEMS_BY_ID." $id_item;";
