@@ -234,9 +234,7 @@
         global $con;
         $id_user = idUsuario($usuario);
         $fecha = date("Y-m-d");
-        $insert_sql = "INSERT INTO pujas 
-        (id, id_item, id_user, cantidad, fecha) 
-        VALUES (NULL, '$id_item', '$id_user', '$cantidad', '$fecha');";
+        $insert_sql = SQL_INSERT_PUJAS."NULL, '$id_item', '$id_user', '$cantidad', '$fecha');";
         mysqli_query($con, $insert_sql);
         if(mysqli_errno($con)) die(mysqli_error($con)); 
     }
@@ -244,11 +242,7 @@
     function pujasUsuario($id_item, $usuario){
         global $con;
         $id_user = idUsuario($usuario);
-        $contar_sql = "select count(id)
-                        from pujas
-                        where id_item = '$id_item'
-                        and id_user = '$id_user'
-                        and fecha = date_format(sysdate(),'%Y-%m-%d');";
+        $contar_sql = SQL_COUNT_PUJAS_BY_FECHAS." and id_item = '$id_item' and id_user = '$id_user');";
         $contar_result = mysqli_query($con, $contar_sql);
         while($contar_row = mysqli_fetch_assoc($contar_result)){
             $contar = $contar_row['count(id)'];
@@ -309,9 +303,7 @@
 
     function insertarItem($id_categoria, $id_usuario, $nombre, $precio, $descripcion, $fecha){
         global $con;
-        $insertar_sql = "INSERT INTO items 
-                         (id, id_cat, id_user, nombre, preciopartida, descripcion, fechafin) 
-                         VALUES (NULL, '$id_categoria', '$id_usuario', '$nombre', '$precio', 
+        $insertar_sql = SQL_INSERT_ITEMS."NULL, '$id_categoria', '$id_usuario', '$nombre', '$precio', 
                          '$descripcion', '$fecha');";
         mysqli_query($con, $insertar_sql);
         if(mysqli_errno($con)) die(mysqli_error($con)); 
@@ -320,10 +312,7 @@
     function esDuenio($usuario, $id_item){
         global $con;
         $id_usuario = idUsuario($usuario);
-        $duenio_sql = "select count(id) 
-                        from items 
-                        where id_user = '$id_usuario'
-                        and id = $id_item;";
+        $duenio_sql = SQL_COUNT_ITEMS." where id_user = '$id_usuario' and id = $id_item;";
         $duenio_result = mysqli_query($con, $duenio_sql);
         while($duenio_row = mysqli_fetch_assoc($duenio_result)){
             $cont = $duenio_row['count(id)'];
@@ -360,8 +349,7 @@
         $nombre = $partir_nombre[0];
         $extension = $partir_nombre[1];
         $arr_nombres = [];
-        $imagen_sql = "select imagen from imagenes where imagen like '$nombre%.$extension'
-        and id_item = $id_item;";
+        $imagen_sql = "select imagen from imagenes where imagen like '$nombre%.$extension' and id_item = $id_item;";
         $imagen_result = mysqli_query($con, $imagen_sql);
         while($imagen_row = mysqli_fetch_assoc($imagen_result)){
             $nombre_parecido = $imagen_row['imagen'];
@@ -395,7 +383,7 @@
     
     function insertarImagen($id_item, $nombre_imagen){
         global $con;
-        $ins_img_sql = "insert into imagenes values (null, $id_item, '$nombre_imagen');";
+        $ins_img_sql = SQL_INSERT_IMAGES."(null, $id_item, '$nombre_imagen');";
         $ins_img_result = mysqli_query($con, $ins_img_sql);
         if(mysqli_errno($con)) die(mysqli_error($con)); 
     }
@@ -403,7 +391,7 @@
     
     function eliminarImagenBBDD($ruta){
         global $con;
-        $eliminar_sql = "DELETE FROM imagenes WHERE imagen = '$ruta';";
+        $eliminar_sql = SQL_DELETE_IMAGENES_BY_IMAGEN."'$ruta'";
         mysqli_query($con, $eliminar_sql);
     }
 
@@ -418,7 +406,7 @@
         $arr_subastas = [];
         $fecha = new DateTime();
         $fecha =  $fecha -> format('Y-m-d H:i:s');
-        $sub_sql = "select id, nombre from items where fechafin < '$fecha'";
+        $sub_sql = SQL_ID_NOMBRE_ITEMS_BY_FECHAFIN." < '$fecha'";
         $sub_result = mysqli_query($con, $sub_sql);
         while($sub_row = mysqli_fetch_assoc($sub_result)){
             $id_item = $sub_row['id'];
@@ -430,10 +418,7 @@
 
     function pujaMaxima($id_item){
         global $con;
-        $puja_sql = "select id_user, cantidad
-                     from pujas
-                     where id_item = $id_item
-                     and cantidad = (select max(cantidad) from pujas where id_item = $id_item);";
+        $puja_sql = SQL_IDUSER_CATIDAD_PUJAS_BY_IDITEM." $id_item and cantidad = (".SQL_MAX_CANTIDAD_PUJAS_BY_IDITEM." $id_item);";
         $puja_result = mysqli_query($con, $puja_sql);
         $id_user_puja_max = null;
         while($puja_row = mysqli_fetch_assoc($puja_result)){
@@ -445,10 +430,7 @@
     function obtenerPujas($item_id){
         global $con;
         $arr_pujas = [];
-        $count_pujas_sql = "
-        select id
-        from pujas
-        where id_item = $item_id;";
+        $count_pujas_sql = SQL_ID_PUJAS_BY_ID_ITEM." $item_id";
         $pujas_result = mysqli_query($con, $count_pujas_sql);
         while($pujas_row = mysqli_fetch_assoc($pujas_result)){
             array_push($arr_pujas, $pujas_row['id']);
@@ -458,7 +440,7 @@
 
     function eliminarPujas($id_puja){
         global $con;
-        $eliminar_sql = "DELETE FROM pujas WHERE id = '$id_puja';";
+        $eliminar_sql = SQL_DELETE_PUJAS_BY_ID."'$id_puja';";
         mysqli_query($con, $eliminar_sql);
     }
 
@@ -479,15 +461,14 @@
             eliminarPujas($puja);
         }
         // por último el item
-        $eliminar_sql = "DELETE FROM items WHERE id = '$id_item';";
+        $eliminar_sql = SQL_DELETE_ITEMS_BY_ID."'$id_item'";
         mysqli_query($con, $eliminar_sql);
     }
 
     function obtenerTodosItems(){
         global $con;
         $arr_items = [];
-        $items_sql ="select id from items;";
-        $items_result = mysqli_query($con, $items_sql);
+        $items_result = mysqli_query($con, SQL_ID_ITEMS);
         while($items_row = mysqli_fetch_assoc($items_result)){
             $id_item = $items_row['id'];
             array_push($arr_items, $id_item);
@@ -501,7 +482,7 @@
         $fecha = new DateTime();
         $fecha = $fecha -> modify("+ 3 day");
         $fecha =  $fecha -> format('Y-m-d H:i:s');
-        $sub_sql = "select id, nombre from items where fechafin between sysdate() and '$fecha'";
+        $sub_sql = SQL_ID_NOMBRE_ITEMS_BY_BETWEEN_FCHAFIN."'$fecha'";
         $sub_result = mysqli_query($con, $sub_sql);
         while($sub_row = mysqli_fetch_assoc($sub_result)){
             $id_item = $sub_row['id'];
@@ -513,7 +494,7 @@
 
     function precioItem($id_item){
         global $con;
-        $precio_sql = "select preciopartida from items where id=$id_item;";
+        $precio_sql = SQL_PRECIOPATIDA_ITEMS_BY_ID."$id_item;";
         $precio_result = mysqli_query($con, $precio_sql);
         while($precio_row = mysqli_fetch_assoc($precio_result)){
             $precio = $precio_row['preciopartida'];
@@ -523,7 +504,7 @@
 
     function venceEn($id_item){
         global $con;
-        $vence_sql = "select fechafin from items where id = $id_item;";
+        $vence_sql = SQL_FECHAFIN_ITEMS_BY_ID." $id_item;";
         $vence_result = mysqli_query($con, $vence_sql);
         while($vence_row = mysqli_fetch_assoc($vence_result)){
             $f_fin = $vence_row['fechafin'];

@@ -32,19 +32,14 @@ const TEXTO_IMAGENES_ACTUALES="Imagenes actuales";
 
 //CONSULTAS SQL
 const SQL_TODAS_CATEGORIAS = "SELECT * FROM CATEGORIAS ORDER BY categoria ASC";
+const SQL_TODAS_CATEGORIAS="SELECT * FROM CATEGORIAS ORDER BY categoria ASC";
 const SQL_TODOS_ITEMS_DISPONIBLES= "select items.id, imagenes.imagen, items.nombre, items.preciopartida, items.fechafin
-from items
-left join imagenes on imagenes.id_item=items.id
-and imagenes.id = (select min(id) from imagenes where id_item = items.id)";
-const SQL_REGISTRO_EMAIL="select email, cadenaverificacion
-from usuarios where email = ";
+from items left join imagenes on imagenes.id_item=items.id and imagenes.id = (select min(id) from imagenes where id_item = items.id)";
+
+const SQL_REGISTRO_EMAIL="select email, cadenaverificacion from usuarios where email = ";
 const SQL_ID_USUARIO_BY_EMAIL="select id from usuarios where email = ";
-const SQL_UPDATE_USUARIO_ACTIVO_WHERE_ID="update usuarios set activo = '1' where id =";
-const SQL_INSERT_USUARIO="INSERT INTO usuarios (id, username, nombre, password, email, cadenaverificacion, activo, falso) VALUES (";
 const SQL_DATOS_USUARIO_POR_USERNAME="SELECT * FROM usuarios where username = ";
 const SQL_USERNAME_PASSWORD_USUARIOS="SELECT username, password, activo FROM usuarios";
-const SQL_TODAS_CATEGORIAS="SELECT * FROM CATEGORIAS ORDER BY categoria ASC";
-const SQL_COUNT_PUJAS= "select count(pujas.id) cuenta from pujas where id_item = ";
 const SQL_PRECIOPARTIDA_ITEMS="select preciopartida from items  where id = ";
 const SQL_MAX_CANTIDAD_PUJA="select max(cantidad) cant from pujas where pujas.id_item =";
 const SQL_FECHAFIN_ITEMS="select fechafin from items  where id = ";
@@ -57,6 +52,31 @@ const SQL_NOMBRE_FROM_USUARIOS_BY_ID="select nombre from usuarios where id =";
 const SQL_ID_CATEGORIAS_BY_CATEGORIA="select id from categorias where categoria = ";
 const SQL_ID_ITEMS_BY_NOMBRE="select id from items where nombre = ";
 const SQL_NOMBRE_ITEMS_BY_ID="select nombre from items where id = ";
+const SQL_FECHAFIN_ITEMS_BY_ID="select fechafin from items where id =";
+const SQL_PRECIOPATIDA_ITEMS_BY_ID="select preciopartida from items where id=";
+const SQL_ID_NOMBRE_ITEMS_BY_BETWEEN_FCHAFIN="select id, nombre from items where fechafin between sysdate() and ";
+const SQL_ID_ITEMS="select id from items";
+const SQL_ID_PUJAS_BY_ID_ITEM="select id From pujas where id_item =";
+const SQL_IDUSER_CATIDAD_PUJAS_BY_IDITEM="select id_user, cantidad from pujas where id_item =";
+const SQL_MAX_CANTIDAD_PUJAS_BY_IDITEM= "select max(cantidad) from pujas where id_item =";
+const SQL_ID_NOMBRE_ITEMS_BY_FECHAFIN="select id, nombre from items where fechafin ";
+
+const SQL_INSERT_PUJAS="INSERT INTO pujas (id, id_item, id_user, cantidad, fecha) VALUES (";
+const SQL_INSERT_IMAGES="INSERT INTO imagenes values ";
+const SQL_INSERT_ITEMS="INSERT INTO items (id, id_cat, id_user, nombre, preciopartida, descripcion, fechafin) VALUES ( ";
+const SQL_INSERT_USUARIO="INSERT INTO usuarios (id, username, nombre, password, email, cadenaverificacion, activo, falso) VALUES (";
+
+const SQL_DELETE_ITEMS_BY_ID="DELETE FROM items WHERE id = ";
+const SQL_DELETE_PUJAS_BY_ID="DELETE FROM pujas WHERE id = ";
+const SQL_DELETE_IMAGENES_BY_IMAGEN="DELETE FROM imagenes WHERE imagen = ";
+
+const SQL_UPDATE_USUARIO_ACTIVO_WHERE_ID="update usuarios set activo = '1' where id =";
+
+const SQL_COUNT_PUJAS_BY_FECHAS="select count(id) from pujas where fecha = date_format(sysdate(),'%Y-%m-%d' ";
+const SQL_COUNT_PUJAS= "select count(pujas.id) cuenta from pujas where id_item = ";
+const SQL_COUNT_ITEMS="select count(id) from items ";
+
+
 //ORDER
 const SQL_ORDERBY_CANTIDAD_DESC=" order by cantidad desc";
 ?>
