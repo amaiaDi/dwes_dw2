@@ -28,7 +28,7 @@
             // MANDAR MAIL PARA VERIFICACIÓN
             $url_cadena_veri=urlencode($cadena_veri); 
             $url_email = urlencode($email);
-            $enlace=obtenerRutaFichero()."/verificacion.php?email=$url_email&cadena_verif=$url_cadena_veri";            
+            $enlace=obtenerRutaFicheroHTTP()."/verificacion.php?email=$url_email&cadena_verif=$url_cadena_veri";            
             
             $mens=<<<MAIL
             Hola $usuarioARegistrar. Haz clic en el siguiente enlace para registrarte:
@@ -51,7 +51,7 @@
     ?>
     <p><?=MSJ_INFO_PANTALLA_REGISTRO?></p>
     <form action="registro.php" method="post">
-        <table class="registro-login">
+        <table>
             <tr>
                 <td><label for="usuario">Usuario</label></td>
                 <td><input type="text" name="usuario"></td>

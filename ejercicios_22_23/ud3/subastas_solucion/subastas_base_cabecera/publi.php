@@ -4,8 +4,14 @@
      */
     require("cabecera.php");
     $_SESSION['pagina_anterior'] =  $_SERVER["REQUEST_URI"]; 
+    $anunciante="";
+    $recibido="";
+    $radioSelect="";
+    $id_item="";
     $items_vencer = getSubastasAPuntoVencer();
     $seleccion_items = [];
+
+
     foreach($items_vencer as $id => $nombre){
         $precio_max = getPrecioMaximo($id);
         $precio = getPrecioItem($id);
@@ -16,15 +22,19 @@
             $seleccion_items[$id] = $nombre;
         }
     }
-   
 
     if(isset($_SESSION['anuncios'])){
         if(isset($_GET['item_id'])){
             $id_item = $_GET['item_id'];
         } 
     
-        if(isset($_POST['radio_btn'])){
-            $recibido = $_POST['radio_btn'];
+        if(isset($_POST['aniadir_anunciante'])){
+            
+            if(isset($_POST['radio_btn'.$id_item])){
+                $recibido = $_POST['radio_btn'.$id_item];
+                $radioSelect='radio_btn'.$id_item;
+            }   
+            
             if(isset($_POST['anunciante']) && !empty($_POST['anunciante'])){
                 $anunciante = $_POST['anunciante'];
                 if($recibido === "web"){
@@ -57,26 +67,24 @@
                     $email = $partes[0];
                     $id = $partes[1];
                     $nombre = getNombreItem($id);       
-                    $enlace="http://localhost/dwes/ud3%20-%20BBDD/subastas/itemdetalles.php?item_id=$id&item_nombre=$nombre";  
+                    $enlace=obtenerRutaFicheroHTTP()."/itemdetalles.php?item_id=$id&item_nombre=$nombre";  
 
                     $mens=<<<MAIL
                     Hola,
-                    desde Subastas Paco te envíamos el enlace a un artículo que podría interesarte.
+                    desde Subastas DWES te envíamos el enlace a un artículo que podría interesarte.
                     $enlace
                     Gracias
                     MAIL;
                     
-                    if (mail($email,"Artículo interesante", $mens, "From:subastas.practica@gmail.com")){
-                        echo "Mensaje enviado:<br><br>";
-                        echo "Pongo el enlace para comprobar que lleva al artículo:<br><br>";
-                        echo "$enlace<br><br>";
+                    if (mail($email,"Artículo interesante", $mens, "From:dwes.icj@gmail.com")){
+                        $_SESSION['anuncios']['email'] = [];
                     }
                     else{
                         echo "No se pudo enviar mensaje";
                     }
                 }
-                $_SESSION['anuncios']['email'] = [];
             }
+            $_SESSION['anuncios']['email'] = [];
         }
     }
     else {
@@ -84,54 +92,43 @@
     }
 ?> 
 
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Index</title>
-    <link rel="stylesheet" href="css/styles.css">
-</head>
-<body>
-    <h1>Subastas a punto de vencer</h1>
-        <table>
-            <tr>
-                <th>ITEM</th>
-                <th>VENCE EN</th>
-                <th>ANUNCIANTE</th>
-                <th>TIPO</th>
-                <th></th>
-            </tr>
-            
-            <?php
-                    
-                    foreach($seleccion_items as $id => $nombre){
-                        $vence = getFechaVencimiento($id);
-                        $nom = $nombre;
-                        ?>
-                        <form action=<?php echo "publi.php?item_id=$id";?> method='post'>
-                        <tr>
-                            <td><?php echo $nombre;?></td>
-                            <td><?php echo $vence;?></td>
-                            <td><input type='text' name='anunciante'></td>
-                            <td>
-                                <input type='radio' name='radio_btn' value='email'>
-                                <label for='email'>Email</label>
-                                <input type='radio' name='radio_btn' value='web'>
-                                <label for='email'>Web</label>
-                            </td>
-                            <td><input type='submit' name='aniadir_anunciante' value='Añadir'></td>
-                        </form>
-                    </tr>
-                    <?php
-                    }
-                    ?>
-              <form action="publi.php" method="post">
-                <tr><td colspan="5"><input type="submit" value="ENVIAR ANUNCIOS" name="enviar_anuncios" class="btn-enviar"></tr></td>
+<h1><?=TITULO_SUBASTAS_VENCER?></h1>
+<table>
+    <tr>
+        <th><?=TITULO_ITEM?></th>
+        <th><?=TITULO_VENCE_EN?></th>
+        <th><?=TITULO_ANUNCIANTE?></th>
+        <th><?=TITULO_TIPO?></th>
+        <th></th>
+    </tr>
+    <?php 
+    foreach($seleccion_items as $id_item_anun => $nombre){
+        $vence = getFechaVencimiento($id_item_anun);
+        $nom = $nombre;
+    ?>
+        <tr>
+            <form action='<?php echo 'publi.php?item_id='.$id_item_anun?>' method='post'>
+                <td><?php echo $nombre;?></td>
+                <td><?php echo $vence;?></td>
+                <td><input type='text' name='anunciante' value='<?= $id_item==$id_item_anun?$anunciante:''?>'></td>
+                <td>
+                    <input type='radio' name='<?='radio_btn'.$id_item_anun?>' value='email' <?=($recibido=='email' && 'radio_btn'.$id_item_anun==$radioSelect)?'checked':''?>>
+                    <label for='email'>Email</label>
+                    <input type='radio' name='<?='radio_btn'.$id_item_anun?>' value='web' <?=($recibido=='web' && 'radio_btn'.$id_item_anun==$radioSelect)?'checked':''?>>
+                    <label for='email'>Web</label>
+                </td>
+                <td><input type='submit' name='aniadir_anunciante' value='Añadir'></td>
             </form>
-        </table>
-    <?php require("pie.php"); ?>
-
-</body>
-</html>
+        </tr>
+    <?php
+    }
+    ?>
+    <tr>
+        <td colspan="5">
+            <form action='<?php echo 'publi.php'?>' method='post'>
+                <input type="submit" value="ENVIAR ANUNCIOS" name="enviar_anuncios" class="btn-enviar">
+            </form>
+        </td>
+    </tr>
+</table>
+<?php require("pie.php"); ?>

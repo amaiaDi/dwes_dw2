@@ -332,7 +332,7 @@
         $contar_sql = SQL_COUNT_PUJAS_BY_FECHAS." and id_item = '$id_item' and id_user = '$id_user');";
         $contar_result = mysqli_query($con, $contar_sql);
         while($contar_row = mysqli_fetch_assoc($contar_result)){
-            $contar = $contar_row['count(id)'];
+            $contar = $contar_row['cuenta'];
         }
         if(mysqli_errno($con)) die(mysqli_error($con)); 
         return $contar;
@@ -651,9 +651,15 @@
         global $con;
         $arr_subastas = [];
         $fecha = new DateTime();
-        $fecha = $fecha -> modify("+ 3 day");
-        $fecha =  $fecha -> format('Y-m-d H:i:s');
-        $sub_sql = SQL_ID_NOMBRE_ITEMS_BY_BETWEEN_FCHAFIN."'$fecha'";
+        $fechaActual= new DateTime(); 
+        $fechaMas3 = $fecha -> modify("+ 3 day");
+        $fechaMas3 =  $fechaMas3 -> format('Y-m-d H:i:s');
+        $fechaActual = $fechaActual -> format('Y-m-d H:i:s');
+        $sub_sql = <<<sql
+        select id, nombre from items        
+        where date_format(items.fechafin, '%d-%m-%Y') between date_format('$fechaActual','%d-%m-%Y') AND date_format('$fechaMas3',"%d-%m-%Y")
+        sql;
+        //SQL_ID_NOMBRE_ITEMS_BY_BETWEEN_FCHAFIN. "'$fecha' AND '$fechaMas3'";
         $sub_result = mysqli_query($con, $sub_sql);
         while($sub_row = mysqli_fetch_assoc($sub_result)){
             $id_item = $sub_row['id'];

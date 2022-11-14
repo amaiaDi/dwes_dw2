@@ -32,6 +32,11 @@ const TITULO_MENU_LOGOUT="Logout";
 const TITULO_MENU_LOGIN="Login";
 const TITULO_NUEVO_ITEM="Añade nuevo item";
 const TITULO_NOMBRE_ITEM="Nombre item";
+const TITULO_SUBASTAS_VENCER="Subastas a punto de vencer";
+const TITULO_ITEM="ITEM";
+const TITULO_VENCE_EN="VENCE EN";
+const TITULO_ANUNCIANTE="ANUNCIANTE";
+const TITULO_TIPO="TIPO";
 
 //textos
 const TEXTO_NO_IMAGEN="NO IMAGEN";
@@ -70,7 +75,7 @@ const SQL_ID_USUARIO_BY_EMAIL="select id from usuarios where email = ";
 const SQL_ID_FROM_USUARIOS_BY_USERNAME="select id from usuarios where username =";
 const SQL_ID_CATEGORIAS_BY_CATEGORIA="select id from categorias where categoria = ";
 const SQL_ID_ITEMS_BY_NOMBRE="select id from items where nombre = ";
-const SQL_ID_NOMBRE_ITEMS_BY_BETWEEN_FCHAFIN="select id, nombre from items where fechafin between sysdate() and ";
+const SQL_ID_NOMBRE_ITEMS_BY_BETWEEN_FCHAFIN="select id, nombre from items where fechafin between ";
 
 const SQL_ID_PUJAS_BY_ID_ITEM="select id From pujas where id_item =";
 const SQL_IDUSER_CATIDAD_PUJAS_BY_IDITEM="select id_user, cantidad from pujas where id_item =";
@@ -80,7 +85,7 @@ const SQL_REGISTRO_EMAIL="select email, cadenaverificacion from usuarios where e
 const SQL_DATOS_USUARIO_POR_USERNAME="SELECT * FROM usuarios where username = ";
 const SQL_USERNAME_PASSWORD_USUARIOS="SELECT username, password, activo FROM usuarios";
 const SQL_PRECIOPARTIDA_ITEMS="select preciopartida from items  where id = ";
-const SQL_MAX_CANTIDAD_PUJA="select max(cantidad) cant from pujas where pujas.id_item =";
+const SQL_MAX_CANTIDAD_PUJA="select max(cantidad) as cant from pujas where pujas.id_item =";
 const SQL_FECHAFIN_ITEMS="select fechafin from items  where id = ";
 const SQL_IMAGEN_BY_ID="select imagen from imagenes where id_item =";
 const SQL_DESCRIPCION_ITEMS_BY_ID="select descripcion from items where id =";
@@ -103,8 +108,8 @@ const SQL_DELETE_IMAGENES_BY_IMAGEN="DELETE FROM imagenes WHERE imagen = ";
 
 const SQL_UPDATE_USUARIO_ACTIVO_WHERE_ID="update usuarios set activo = '1' where id =";
 
-const SQL_COUNT_PUJAS_BY_FECHAS="select count(id) from pujas where fecha = date_format(sysdate(),'%Y-%m-%d' ";
-const SQL_COUNT_PUJAS= "select count(pujas.id) cuenta from pujas where id_item = ";
+const SQL_COUNT_PUJAS_BY_FECHAS="select count(id) as cuenta from pujas where fecha = date_format(sysdate(),'%Y-%m-%d' ";
+const SQL_COUNT_PUJAS= "select count(pujas.id) as cuenta from pujas where id_item = ";
 const SQL_COUNT_ITEMS="select count(id) from items ";
 
 

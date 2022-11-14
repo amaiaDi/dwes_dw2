@@ -50,7 +50,7 @@
     }
     ?>
     <form action="nuevoitem.php" method="post">
-        <table class="registro-login">
+        <table>
             <tr>
                 <td><label for="categoria"></label>Categoría</td>
                 <td><select name="categoria">
@@ -72,8 +72,8 @@
             </tr>
             <tr>
                 <td><label for="fechafin">Fecha de fin para pujas</label></td>
-                <td><table class="registro-login">
-                    <tr class="registro-login">
+                <td><table>
+                    <tr >
                         <td>Día</td>
                         <td>Mes</td>
                         <td>Año</td>

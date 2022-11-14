@@ -30,7 +30,7 @@
         <h1>LOGIN</h1>
     </header>
     <form action="login.php" method="post" >
-        <table class="registro-login">
+        <table >
             <tr>
                 <td><label for="usuario">Usuario</label></td>
                 <td><input type="text" name="usuario"></td>
