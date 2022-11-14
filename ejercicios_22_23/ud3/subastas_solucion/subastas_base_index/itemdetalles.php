@@ -1,12 +1,8 @@
 <?php
-    /**
-     * Pagina de detalle de item que se carga en el div de contenido main
-     */
-    require("cabecera.php");
     $_SESSION['pagina_anterior'] =  $_SERVER["REQUEST_URI"]; 
 
-    if(isset($_GET['item_id'])){
-        $id = $_GET['item_id'];
+    if(isset($_GET['id_item'])){
+        $id = $_GET['id_item'];
         $num_pujas = getCantidadPujas($id);
         $precio = getPrecioMaximo($id);
         $fecha = getFechaFinPuja($id);
@@ -56,7 +52,7 @@
         if(sigueSubastaEnActivo($fecha)){
 ?>      
             <h2>Pujar por este item</h2>
-            <form action=<?php echo "itemdetalles.php?item_id=$id&item_nombre=$nombre";?> method="post">
+            <form action=<?php echo "index.php?ira=itemdetalles&id_item=$id&item_nombre=$nombre";?> method="post">
                 <table>
                     <tr>
                         <td><input type="text" name="cant_puja"></td>
@@ -83,8 +79,6 @@
         }
     }
 else {
-        echo "<p>Para pujar, debes autenticarte <a href='login.php'>aquí</a></p>";
+        echo "<p>Para pujar, debes autenticarte <a href='index.php?ira=login'>aquí</a></p>";
 }
 ?>
-
-<?php require("pie.php"); ?>

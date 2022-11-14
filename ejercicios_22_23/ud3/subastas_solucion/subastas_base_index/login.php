@@ -2,8 +2,6 @@
     /**
      * Pagina de login que se carga en el centro, en el div main
      */
-    //Cagamos la estructura de la pagina de cabecera
-    require("cabecera.php");
     //Establece la información de la ultima pagina visitada.Cargamos la de la pagina a la que accedemos porque será la anteior al movernos a la siguiente
     //$_SESSION['pagina_anterior'] =  $_SERVER["REQUEST_URI"];
 
@@ -29,7 +27,7 @@
     <header>
         <h1>LOGIN</h1>
     </header>
-    <form action="login.php" method="post" >
+    <form action="index.php?ira=login" method="post" >
         <table >
             <tr>
                 <td><label for="usuario">Usuario</label></td>
@@ -41,10 +39,9 @@
             </tr>
             <tr>
                 <td></td>
-                <td><input type="submit" value="Login!" name="loguearse"></td>
+                <td><input type="submit" value="Login" name="loguearse"></td>
             </tr>
         </table>
-        <p>No tienes una cuenta? <a href="registro.php">Regístrate!</a></p>
+        <p><?=TEXTO_TIENES_CUENTA?> <a href="index.php?ira=registro"><?=TEXTO_REGISTRATE?></a></p>
     </form>
     <?php if(isset($mensaje)) echo "<p class='msg-rojo'>$mensaje</p>"?>
-    <?php require("pie.php"); ?>

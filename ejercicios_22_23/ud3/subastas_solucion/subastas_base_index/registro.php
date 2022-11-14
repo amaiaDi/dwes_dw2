@@ -1,9 +1,4 @@
 <?php
-    /**
-     * Pagina de registro que se carga en el div de contenido main
-     */
-    //Cagamos la estructura de la pagina de cabecera
-    require("cabecera.php");
     //Establece la información de la ultima pagina visitada.Cargamos la de la pagina a la que accedemos porque será la anteior al movernos a la siguiente
     //$_SESSION['pagina_anterior'] =  $_SERVER["REQUEST_URI"];
 
@@ -15,7 +10,7 @@
         //Si el usuario existe, nos redirigimos a la pagina de registro mandando el mensaje de error 
         if(existeUsuario($usuarioARegistrar)){
             $mensaje = "El usuario $usuario ya existe";
-            header("Location: registro.php?mensaje=$mensaje");
+            header("Location: index.php?ira=registro&mensaje=$mensaje");
         }
         //Si no existe, lo incluimos en BD obteniendo los datos enviados en la variable $_POST de la peticion del formulario
         else {
@@ -28,7 +23,7 @@
             // MANDAR MAIL PARA VERIFICACIÓN
             $url_cadena_veri=urlencode($cadena_veri); 
             $url_email = urlencode($email);
-            $enlace=obtenerRutaFicheroHTTP()."/verificacion.php?email=$url_email&cadena_verif=$url_cadena_veri";            
+            $enlace=obtenerRutaFicheroHTTP()."/index.php?ira=verificacion&email=$url_email&cadena_verif=$url_cadena_veri";            
             
             $mens=<<<MAIL
             Hola $usuarioARegistrar. Haz clic en el siguiente enlace para registrarte:
@@ -39,7 +34,7 @@
             if (mail($email,MAIL_TITULO, $mens, MAIL_FROM)){
                 insertarUsuario($usuarioARegistrar, $nombre, $pass, $email, $cadena_veri);
                 $mensaje = "El usuario ".strtoupper($usuarioARegistrar).MSJ_INFO_USUARIO_REGISTRADO;
-                header("Location: registro.php?mensaje=$mensaje");
+                header("Location: index.php?ira=registro&mensaje=$mensaje");
             }
             else{
                 echo "No se pudo enviar mensaje";
@@ -50,7 +45,7 @@
 
     ?>
     <p><?=MSJ_INFO_PANTALLA_REGISTRO?></p>
-    <form action="registro.php" method="post">
+    <form action="index.php?ira=registro" method="post">
         <table>
             <tr>
                 <td><label for="usuario">Usuario</label></td>
@@ -79,7 +74,6 @@
         </table>
     </form>
     <p class="msg-rojo"><?php if(isset($_GET['mensaje'])) echo $_GET['mensaje'];?></p>
-    <?php require("pie.php"); ?>
 
     
     <script>

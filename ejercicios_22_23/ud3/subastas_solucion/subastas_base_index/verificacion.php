@@ -14,7 +14,7 @@
             $id = getIdUsuarioEmail($mail);
             darUsuarioAlta($id);
             echo "<p class='verificacion'>Se ha verificado tu cuenta. Puedes entrar pinchando
-                <a href='login.php'>aquí</a>
+                <a href='index.php?ira=login'>aquí</a>
             </p>";
         }
         else {
@@ -23,4 +23,3 @@
     }
 
 ?>
-<?php require("pie.php"); ?>

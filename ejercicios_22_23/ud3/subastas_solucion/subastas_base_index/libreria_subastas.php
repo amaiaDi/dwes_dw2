@@ -1,8 +1,4 @@
 <?php
-    /**
-     * Pagina encargada crear la estructura
-     */
-    include_once("config.php");
     $con = mysqli_connect(DB_HOST,DB_USER,DB_PASS);
     mysqli_select_db($con, DB_DATABASE);
 
@@ -150,9 +146,9 @@
     /**
      * Función para obtener el numero de pujas
      */
-    function getCantidadPujas($item_id){
+    function getCantidadPujas($id_item){
         global $con;
-        $count_pujas_sql = SQL_COUNT_PUJAS." $item_id;";
+        $count_pujas_sql = SQL_COUNT_PUJAS." $id_item;";
         $pujas_result = mysqli_query($con, $count_pujas_sql);
         while($pujas_row = mysqli_fetch_assoc($pujas_result)){
             $cuenta = $pujas_row['cuenta'];
@@ -163,15 +159,15 @@
     /**
      * Función para obtener el precio maximo de una puja en base al id de item
      */
-    function getPrecioMaximo($item_id){
+    function getPrecioMaximo($id_item){
         global $con;
-        $precio_sql = SQL_PRECIOPARTIDA_ITEMS." $item_id";
+        $precio_sql = SQL_PRECIOPARTIDA_ITEMS." $id_item";
         $precio_result = mysqli_query($con, $precio_sql);
         while($precio_row = mysqli_fetch_assoc($precio_result)){
             $precio_item = $precio_row['preciopartida'];
         }
 
-        $precio_max_sql = SQL_MAX_CANTIDAD_PUJA." $item_id";
+        $precio_max_sql = SQL_MAX_CANTIDAD_PUJA." $id_item";
         $precio_max_result = mysqli_query($con, $precio_max_sql);
         while($precio_row = mysqli_fetch_assoc($precio_max_result)){
             $precio_max = $precio_row['cant'];
@@ -188,9 +184,9 @@
     /**
      * Función para modificar la fecha de fin de puja
      */
-    function getFechaFinPuja($item_id){
+    function getFechaFinPuja($id_item){
         global $con;
-        $fecha_sql = SQL_FECHAFIN_ITEMS." $item_id";
+        $fecha_sql = SQL_FECHAFIN_ITEMS." $id_item";
         $fecha_result = mysqli_query($con, $fecha_sql);
         while($fecha_row = mysqli_fetch_assoc($fecha_result)){
             $fecha = $fecha_row['fechafin'];
@@ -201,9 +197,9 @@
     /**
      * Función para obtener imagenes en base al id de item
      */
-    function obtenerImagenes($item_id){
+    function obtenerImagenes($id_item){
         global $con;
-        $img_sql = SQL_IMAGEN_BY_ID." $item_id";
+        $img_sql = SQL_IMAGEN_BY_ID." $id_item";
         $img_result = mysqli_query($con, $img_sql);
         $arr_img = [];
         while($img_row = mysqli_fetch_assoc($img_result)){
@@ -216,9 +212,9 @@
      /**
      * Función para obtener la descripción de item en base al id
      */
-    function obtenerDescripcion($item_id){
+    function obtenerDescripcion($id_item){
         global $con;
-        $desc_sql = SQL_DESCRIPCION_ITEMS_BY_ID." $item_id";
+        $desc_sql = SQL_DESCRIPCION_ITEMS_BY_ID." $id_item";
         $desc_result = mysqli_query($con, $desc_sql);
         while($desc_row = mysqli_fetch_assoc($desc_result)){
             $desc = $desc_row['descripcion'];
@@ -229,10 +225,10 @@
     /**
      * Función para obtener el Historial  en base al id de item odenado por cantidad de fora descendente
      */
-    function obtenerHistorial($item_id){
+    function obtenerHistorial($id_item){
         global $con;
         $historial = [];
-        $histo_sql = SQL_USERNAME_CANTIDAD_PUJAS_USUARIOS_BY_ID." $item_id ".SQL_ORDERBY_CANTIDAD_DESC;
+        $histo_sql = SQL_USERNAME_CANTIDAD_PUJAS_USUARIOS_BY_ID." $id_item ".SQL_ORDERBY_CANTIDAD_DESC;
 
         $histo_result = mysqli_query($con, $histo_sql);
         while($histo_row = mysqli_fetch_assoc($histo_result)){
@@ -586,10 +582,10 @@
      /**
      * Función para obtener pujas en base a un id de item
      */
-    function obtenerPujas($item_id){
+    function obtenerPujas($id_item){
         global $con;
         $arr_pujas = [];
-        $count_pujas_sql = SQL_ID_PUJAS_BY_ID_ITEM." $item_id";
+        $count_pujas_sql = SQL_ID_PUJAS_BY_ID_ITEM." $id_item";
         $pujas_result = mysqli_query($con, $count_pujas_sql);
         while($pujas_row = mysqli_fetch_assoc($pujas_result)){
             array_push($arr_pujas, $pujas_row['id']);

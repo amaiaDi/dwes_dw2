@@ -8,13 +8,13 @@
 
     if(isset($_SESSION['usuario']) == TRUE) {
         
-        echo "<a href='nuevoitem.php'> ".TITULO_MENU_NUEVO_ITEM." </a>";
+        echo "<a href='index.php?ira=nuevoitem'> ".TITULO_MENU_NUEVO_ITEM." </a>";
         if($usuario == USUARIO_ADMIN){
-            echo "<a href='vencidas.php'> ".TITULO_MENU_SUBASTAS_VENCIDAS." </a>";
-            echo "<a href='Publi.php'> ".TITULO_MENU_ANUNCIANTES." </a>";
+            echo "<a href='index.php?ira=vencidas'> ".TITULO_MENU_SUBASTAS_VENCIDAS." </a>";
+            echo "<a href='index.php?ira=anunciantes'> ".TITULO_MENU_ANUNCIANTES." </a>";
         }
-        echo "<a href='logout.php'> ".TITULO_MENU_LOGOUT." ($usuario)</a>";
+        echo "<a href='index.php?ira=logout'> ".TITULO_MENU_LOGOUT." ($usuario)</a>";
     }else {
-        echo "<a href='login.php'>".TITULO_MENU_LOGIN." </a>";
+        echo "<a href='index.php?ira=login'>".TITULO_MENU_LOGIN." </a>";
     }
 ?>

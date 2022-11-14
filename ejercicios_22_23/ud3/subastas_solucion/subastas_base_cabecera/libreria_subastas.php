@@ -586,10 +586,10 @@
      /**
      * Función para obtener pujas en base a un id de item
      */
-    function obtenerPujas($item_id){
+    function obtenerPujas($id_item){
         global $con;
         $arr_pujas = [];
-        $count_pujas_sql = SQL_ID_PUJAS_BY_ID_ITEM." $item_id";
+        $count_pujas_sql = SQL_ID_PUJAS_BY_ID_ITEM." $id_item";
         $pujas_result = mysqli_query($con, $count_pujas_sql);
         while($pujas_row = mysqli_fetch_assoc($pujas_result)){
             array_push($arr_pujas, $pujas_row['id']);

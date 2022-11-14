@@ -2,9 +2,6 @@
     /**
      * Pagina de nuevo item que se carga en el div de contenido main
      */
-    
-    //Cagamos la estructura de la pagina de cabecera
-    require("cabecera.php");
     //Establece la información de la ultima pagina visitada.Cargamos la de la pagina a la que accedemos porque será la anteior al movernos a la siguiente
     $_SESSION['pagina_anterior'] =  $_SERVER["REQUEST_URI"];
 ?>
@@ -42,14 +39,14 @@
             if(!existeItemCategoriaNombre($nombre,$id_categoria )){
                 insertarItem($id_categoria, $id_usuario, $nombre, $precio, $descripcion, $str_fecha);
                 $id_item = getIdItem($nombre);
-                header(("Location: editaritem.php?id_item=$id_item"));
+                header(("Location: index.php?ira=editaritem&id_item=$id_item"));
             }else{
                 $errores = "<p>* ".MSJ_ITEM_REPETIDO_NOMBRE_CATEGORIA."</p>";
             }
         }
     }
     ?>
-    <form action="nuevoitem.php" method="post">
+    <form action="index.php?ira=nuevoitem" method="post">
         <table>
             <tr>
                 <td><label for="categoria"></label>Categoría</td>
@@ -97,5 +94,3 @@
         </table>
     </form>
     <div class="msg-rojo"><?php if(isset($errores)) echo $errores;?></div>
-
-    <?php require("pie.php"); ?>

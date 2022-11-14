@@ -33,7 +33,6 @@ const TITULO_MENU_LOGIN="Login";
 const TITULO_NUEVO_ITEM="Añade nuevo item";
 const TITULO_NOMBRE_ITEM="Nombre item";
 const TITULO_SUBASTAS_VENCER="Subastas a punto de vencer";
-const TITULO_ITEM="ITEM";
 const TITULO_VENCE_EN="VENCE EN";
 const TITULO_ANUNCIANTE="ANUNCIANTE";
 const TITULO_TIPO="TIPO";
@@ -46,6 +45,8 @@ const TEXTO_SUBIR="SUBIR";
 const TEXTO_FECHA_FIN_PARA_PUJAR="Fecha fin para pujar";
 const TEXTO_IMAGENES_ACTUALES="Imagenes actuales";
 const TEXTO_USUARIO_LOGUEADO="Usuario logueado: ";
+const TEXTO_TIENES_CUENTA="¿No tienes una cuenta?";
+const TEXTO_REGISTRATE="Regístrate";
 
 //Mensajes
 

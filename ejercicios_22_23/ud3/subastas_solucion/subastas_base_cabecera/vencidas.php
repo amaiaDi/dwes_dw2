@@ -55,7 +55,7 @@
                     }
                     echo " <tr>
                     <td><input type='checkbox' name='borrar_vencida[]' value='$id_item'></td>
-                    <td><a href='itemdetalles.php?item_id=$id_item&item_nombre=$nom_item'>$nom_item</a></td>
+                    <td><a href='itemdetalles.php?id_item=$id_item&item_nombre=$nom_item'>$nom_item</a></td>
                     <td>PRECIO FINAL: $precio_final €</td>
                     <td>Ganador: $ganador</td>
                     </tr>";

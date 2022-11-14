@@ -2,7 +2,6 @@
      /**
      * Pagina pagina index principal
      */
-    require("cabecera.php");
     $_SESSION['pagina_anterior'] =  $_SERVER["REQUEST_URI"]; 
 
     if(isset($_GET['id'])){
@@ -28,7 +27,7 @@
         </tr>
         <?php      
         while($item_row = mysqli_fetch_assoc($item_result)){
-            $item_id = $item_row['id'];
+            $id_item = $item_row['id'];
             $item_nombre = $item_row['nombre'];
             echo "<tr>";
             // imagen 
@@ -42,19 +41,19 @@
             echo "</td>";
             // nombre (enlace)
             echo "<td>";
-                echo "<a href='itemdetalles.php?item_id=$item_id&item_nombre=$item_nombre'>$item_nombre</a>";
+                echo "<a href='index.php?ira=editaritem&id_item=$id_item&item_nombre=$item_nombre'>$item_nombre</a>";
                 if(isset($usuario) && !empty($usuario)) {
-                    if (esDuenio($usuario, $item_id)){
-                        echo "<a href='editaritem.php?id_item=$item_id'>[editar]</a>";
+                    if (esDuenio($usuario, $id_item)){
+                        echo "<a href='index.php?ira=editaritem&id_item=$id_item'>[editar]</a>";
                     }
                 }
             echo "</td>";
             // cantidad de pujas
-            $cantidad = getCantidadPujas($item_id);
+            $cantidad = getCantidadPujas($id_item);
             echo "<td>$cantidad</td>";
             
             // precio
-            $precio = getPrecioMaximo($item_id);
+            $precio = getPrecioMaximo($id_item);
             $moneda = TIPO_MONEDA;
             echo "<td>$precio $moneda </td>";
     
@@ -65,4 +64,3 @@
         }
         ?>
     </table>
-<?php require("pie.php"); ?>

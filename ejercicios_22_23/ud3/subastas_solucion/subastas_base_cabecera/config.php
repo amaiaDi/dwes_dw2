@@ -33,7 +33,6 @@ const TITULO_MENU_LOGIN="Login";
 const TITULO_NUEVO_ITEM="Añade nuevo item";
 const TITULO_NOMBRE_ITEM="Nombre item";
 const TITULO_SUBASTAS_VENCER="Subastas a punto de vencer";
-const TITULO_ITEM="ITEM";
 const TITULO_VENCE_EN="VENCE EN";
 const TITULO_ANUNCIANTE="ANUNCIANTE";
 const TITULO_TIPO="TIPO";
