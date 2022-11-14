@@ -43,16 +43,18 @@
             // nombre (enlace)
             echo "<td>";
                 echo "<a href='itemdetalles.php?item_id=$item_id&item_nombre=$item_nombre'>$item_nombre</a>";
-                if(isset($usuario) && esDuenio($usuario, $item_id)){
-                    echo "<a href='editaritem.php?id_item=$item_id'>[editar]</a>";
+                if(isset($usuario) && !empty($usuario)) {
+                    if (esDuenio($usuario, $item_id)){
+                        echo "<a href='editaritem.php?id_item=$item_id'>[editar]</a>";
+                    }
                 }
             echo "</td>";
             // cantidad de pujas
-            $cantidad = cantidadPujas($item_id);
+            $cantidad = getCantidadPujas($item_id);
             echo "<td>$cantidad</td>";
             
             // precio
-            $precio = precioMaximo($item_id);
+            $precio = getPrecioMaximo($item_id);
             $moneda = TIPO_MONEDA;
             echo "<td>$precio $moneda </td>";
     

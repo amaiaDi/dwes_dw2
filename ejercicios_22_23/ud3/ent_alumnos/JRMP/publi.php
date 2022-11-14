@@ -6,7 +6,7 @@
     foreach($items_vencer as $id => $nombre){
         $precio_max = precioMaximo($id);
         $precio = precioItem($id);
-        if(cantidadPujas($id) == 0){
+        if(getCantidadPujas($id) == 0){
             $seleccion_items[$id] = $nombre;
         }
         elseif (($precio * 1.10) >= $precio_max){

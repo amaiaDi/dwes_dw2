@@ -2,7 +2,7 @@
 /* FICHERO DE GESTION
  */
 // CONEXION - metodo que crea conexión de BD y la devuelve
-function fncCrearConexion($conn, $host, $user, $pass, $db){
+function fncCrearConexion( $host, $user, $pass, $db){
 
     $conn = new mysqli($host,$user, $pass);   
     if(!$conn->select_db($db)) die ($conn->error);  
@@ -128,80 +128,4 @@ function fncConsultarTablaCon2BindVariables($conn,$sql, $arrayBindVariable,$tipo
     }; 
 }
 //
-?>
-<?php
-/*
-*   METODOS ESPECIFICOS DE BD RESTAURANTE - INTERFAZ PROCEDIMENTAL
-*/
-
-//Guardar fichero BLOB en la fila de la tabla especificada en la consulta
-function fncGuardarFicheroBLOB($conn, $sql, $arrayDatosFichero, $id){
-
-    //obtenemos la información del fichero a guarda en BD
-    $fichero = $arrayDatosFichero['cargaFichero']['tmp_name'];
-    $ficheroContenido = addslashes(file_get_contents($fichero));
-
-    $sql="UPDATE alimentos SET fichero='".$ficheroContenido."' WHERE id=".$id;
-    $conn->query($sql);  
-
-    if($conn->errno){
-        die($conn->error);
-    }
-}
-
-// INSERTAR ALIMENTO NUEVO
-// -	Nombre (caja de texto) + precio (caja de texto) + select (con primero, segundo, postre) +submit  Para insertar nuevo alimento en la tabla con la fecha de hoy
-function fncInsertarNuevoAlimento($conn,$tabla, $arrayInfoAlimento){
-
-    $nombre=$arrayInfoAlimento['nombreAlimento'];
-    $precio=(float)$arrayInfoAlimento['precioAlimento'];
-    $tipo= $arrayInfoAlimento['tipoAlimento'];
-    //$fecha=$arrayInfoAlimento['fechaAlimento'];
-    
-    $sql = "INSERT INTO $tabla (nombre, precio, tipo, fecha) VALUES ('$nombre',$precio,'$tipo',SYSDATE())"; 
-    $resultado =$conn->query($sql);  
-    if($conn->errno){
-        die($conn->error);
-    }
-
-}
-// ACTUALIZAR CAMPO FECHA
-// -	Submit  Para actualizar todos los alimentos de la tabla con “fecha anterior al 1 de Enero de 2014” y ponerles la fecha de hoy
-function fncActualizarCampoFecha($conn,$nobreTabla){
-
-    $sql = "UPDATE $nobreTabla SET fecha=SYSDATE() WHERE fecha < '2014-01-01'";  
-    $resultado = $conn->query($sql);  
-    if($conn->errno){
-        die($conn->error);
-    }
-
-}
-// CONSULTA DE ALIMENTOS BARATOS
-// -	Submit  Para visualizar una tabla html con los 
-// alimentos de precio menor al precio medio: Usando mysqli_fetch_assoc
-function fncConsultaAlimentosBaratos($conn){
-
-    $resultado= $conn->$conn->query(SQL_ALIMENTOS_MENOR_MEDIA);
-    if($conn->errno){
-        die($conn->error);
-    }else{
-        return $resultado;
-    }; 
-
-
-}
-// CONSULTA DE ALIMENTOS POR TIPO
-// -	3 radios (primero, segundo, postre) + submit  Para visualizar una lista html con los alimentos del tipo seleccionado: Usando mysqli_fetch_array
-function fncConsultaAlimentosPorTipo($conn,$nobreTabla,$tipo){
-
-    $sql = "SELECT nombre, precio, tipo, fecha FROM $nobreTabla 
-    WHERE tipo='$tipo'";
-
-    $resultado= $conn->fetch_assoc($conn,$sql);
-    if($conn->errno){
-        die($conn->error);
-    }else{
-        return $resultado;
-    }; 
-}
 ?>

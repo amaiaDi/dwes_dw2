@@ -4,7 +4,7 @@
 
     if(isset($_GET['item_id'])){
         $id = $_GET['item_id'];
-        $num_pujas = cantidadPujas($id);
+        $num_pujas = getCantidadPujas($id);
         $precio = precioMaximo($id);
         $fecha = fechaFinPuja($id);
     }

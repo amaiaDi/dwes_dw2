@@ -2,27 +2,21 @@
     /**
      * Pagina de nuevo item que se carga en el div de contenido main
      */
+    
+    //Cagamos la estructura de la pagina de cabecera
     require("cabecera.php");
+    //Establece la información de la ultima pagina visitada.Cargamos la de la pagina a la que accedemos porque será la anteior al movernos a la siguiente
     $_SESSION['pagina_anterior'] =  $_SERVER["REQUEST_URI"];
 ?>
 
-<!DOCTYPE html>
-<html lang="eS">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Index</title>
-    <link rel="stylesheet" href="css/styles.css">
-</head>
-<body>
-    <h1>Añade nuevo item</h1>
+    <h1><?=TITULO_NUEVO_ITEM?></h1>
     <?php
     if(isset($_POST['btn_nuevo_item'])){
-        // categoria
+        // Obtengo la infomación de la categoria de la peticion en la variable POST mediante el envio del formulario
         $categoria = $_POST['categoria'];
-        $id_categoria = idCategoria($categoria);
-        // fecha
+        $id_categoria = getIdCategoria($categoria);
+        
+        // Recuperamos la fecha de la peticion en la variable POST mediante el envio del formulario
         $dia = $_POST['dia'];
         $mes = $_POST['mes'];
         $anio = $_POST['anio'];
@@ -30,24 +24,29 @@
         $minutos = $_POST['minutos'];
         $str_fecha = "$anio-$mes-$dia $hora:$minutos";
         $fecha = strtotime($str_fecha);
-        // nombre item
+        // Recuperamos nombre item de la peticion en la variable POST mediante el envio del formulario
         $nombre = $_POST['nombre'];
-        // descripcion
+        // descripcion de la peticion en la variable POST mediante el envio del formulario
         $descripcion = $_POST['descripcion'];
-        // precio
+        // precio de la peticion en la variable POST mediante el envio del formulario
         $precio = $_POST['precio'];
-        $errores = verificarNuevoItem($nombre, $descripcion, $precio, $fecha);
-        if($errores == ""){
-            // nombre usuario
-            $usuario = $_SESSION['usuario'];
-            $id_usuario = idUsuario($usuario);
-            // NO COMPROBAMOS, NO LO PIDE, SI EL ITEM EXISTE
-            insertarItem($id_categoria, $id_usuario, $nombre, $precio, $descripcion, $str_fecha);
-            $id_item = idItem($nombre);
-            header(("Location: editaritem.php?id_item=$id_item"));
-        }
-        // SI HAY ERRORES SE BORRA EL FORMULARIO, MIRAR ESTO
+        
+        //Validamos el formulario del nuevo item para mostrar mensajes en los elementos que falten
+        $errores = validarNuevoItem($nombre, $descripcion, $precio, $fecha);
+        if(empty($errores)){
 
+            //obtenemos el id de usuario en base al nombre de usuario
+            $id_usuario = getIdUsuario($usuario);
+            
+            // Comprobamos si existe un item con el mismo nombre en esa categoria
+            if(!existeItemCategoriaNombre($nombre,$id_categoria )){
+                insertarItem($id_categoria, $id_usuario, $nombre, $precio, $descripcion, $str_fecha);
+                $id_item = getIdItem($nombre);
+                header(("Location: editaritem.php?id_item=$id_item"));
+            }else{
+                $errores = "<p>* ".MSJ_ITEM_REPETIDO_NOMBRE_CATEGORIA."</p>";
+            }
+        }
     }
     ?>
     <form action="nuevoitem.php" method="post">
@@ -97,9 +96,6 @@
             </tr>
         </table>
     </form>
-    <div><?php if(isset($errores)) echo $errores;?></div>
+    <div class="msg-rojo"><?php if(isset($errores)) echo $errores;?></div>
 
     <?php require("pie.php"); ?>
-
-</body>
-</html>

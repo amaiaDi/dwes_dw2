@@ -3,6 +3,8 @@
 	- Temas relacionados con la estructura de de las paginas cabecera/index/pie
 	- Mantener interfaces de BBDD - I.procedimiental, I.orientada a objetos
 	- envío email
+	- Cuidado con mensajes a pantalla de prueba - se pueden quedar olvidados
+	-Cuidado al pasar información por la url mediante get, sobre todo infor qu tenga espacios
 
 ***ASPECTO DE CABECERA, BARRA Y MAIN***
 ** DOS FORMAS DE HACERLO:
@@ -23,3 +25,12 @@ from ud03.items it where now() < it.fechafin;
 
   while($item_row = mysqli_fetch_assoc($resultusr)){
   }
+  
+
+****CUIDADO CON LAS SIGUIENTES CONSTRUCCIONES DE CONDICIONES
+-> Que pasa si $usuario existe pero esta vacio?
+	if(isset($usuario) && esDuenio($usuario, $item_id)){ -> 
+-> Cuidado con utilizar variables locales que hacen referencia a variabbles globales
+ EJ. Variable global $usuario relleno cuando nos logueamos con usuario a registrar no existente en la BD y que debe comprobarse si existe en el fichero de registro
+-> Mantener omogeneidad en la mustra de mensajes, si se muestran abajo siempre abajo, en todas las pantallas
+ 

@@ -43,15 +43,15 @@
             </tr>
             
             <?php
-                $subastas = subastasVencidas();
+                $subastas = getSubastasVencidas();
                 foreach($subastas as $id_item => $nom_item){
-                    $precio_final = precioMaximo($id_item);
-                    $id_ganador = pujaMaxima($id_item);
+                    $precio_final = getPrecioMaximo($id_item);
+                    $id_ganador = getPujaMaxima($id_item);
                     if($id_ganador == null){
                         $ganador = "Sin pujas";
                     }
                     else{
-                        $ganador = nombreUsuario($id_ganador);
+                        $ganador = getNombreUsuario($id_ganador);
                     }
                     echo " <tr>
                     <td><input type='checkbox' name='borrar_vencida[]' value='$id_item'></td>

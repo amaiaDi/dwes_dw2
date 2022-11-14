@@ -2,7 +2,12 @@
     /**
      * Pagina de login que se carga en el centro, en el div main
      */
+    //Cagamos la estructura de la pagina de cabecera
     require("cabecera.php");
+    //Establece la información de la ultima pagina visitada.Cargamos la de la pagina a la que accedemos porque será la anteior al movernos a la siguiente
+    //$_SESSION['pagina_anterior'] =  $_SERVER["REQUEST_URI"];
+
+    //Si la peticon viene del formulario de usuario, recuperamos los datos y metemos el usuario en sesion
     if(isset($_POST['usuario'])){
         $usuario = $_POST['usuario'];
         $password = $_POST['password'];
@@ -21,16 +26,6 @@
     }
 
 ?>
-
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="css/styles.css">
-    <title>Registro</title>
-</head>
-<body>
-    <?php if(isset($mensaje)) echo $mensaje;?>
     <header>
         <h1>LOGIN</h1>
     </header>
@@ -51,6 +46,5 @@
         </table>
         <p>No tienes una cuenta? <a href="registro.php">Regístrate!</a></p>
     </form>
+    <?php if(isset($mensaje)) echo "<p class='msg-rojo'>$mensaje</p>"?>
     <?php require("pie.php"); ?>
-</body>
-</html>

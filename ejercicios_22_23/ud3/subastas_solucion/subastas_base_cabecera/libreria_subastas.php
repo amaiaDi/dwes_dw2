@@ -17,6 +17,33 @@
         return $randomstring;
     }
 
+     /**
+     * Función para obtener la ruta del fichero verificacion.php para crear la ruta de envío
+     */
+    function obtenerRutaFicheroHTTP(){
+        //Obtenemos la ruta completa del fichero desde donde se esta ejecutando el metodo y los metemos en un array asociativo
+        $partes_ruta = pathinfo($_SERVER['HTTP_REFERER']);
+
+        //Obenemos la parte relacionada con el directorio. Podriamos elegir tambien (basename,extension,filename)
+        $directorio= $partes_ruta['dirname'];
+
+        return $directorio;
+    }
+
+    
+     /**
+     * Función para obtener la ruta del fichero verificacion.php para crear la ruta de envío
+     */
+    function obtenerRutaFichero(){
+        //Obtenemos la ruta completa del fichero desde donde se esta ejecutando el metodo y los metemos en un array asociativo
+        $partes_ruta = pathinfo($_SERVER['SCRIPT_FILENAME']);
+
+        //Obenemos la parte relacionada con el directorio. Podriamos elegir tambien (basename,extension,filename)
+        $directorio= $partes_ruta['dirname'];
+
+        return $directorio;
+    }
+
     /**
      * Función para comprobar Mail
      */
@@ -37,7 +64,7 @@
     /**
      * Función para obtener el ID de usuaario mediante el email
      */
-    function idUsuarioEmail($mail){
+    function getIdUsuarioEmail($mail){
         global $con;
         $mail_sql = SQL_ID_USUARIO_BY_EMAIL." '$mail'";
         $mail_result = mysqli_query($con, $mail_sql);
@@ -69,7 +96,7 @@
     /**
      * Función para comprobar si el usuario existe
      */
-    function usuarioExiste($usuario){
+    function existeUsuario($usuario){
         global $con;
         $buscar_sql = SQL_DATOS_USUARIO_POR_USERNAME." '$usuario'";
         $buscar_result = mysqli_query($con, $buscar_sql);
@@ -123,7 +150,7 @@
     /**
      * Función para obtener el numero de pujas
      */
-    function cantidadPujas($item_id){
+    function getCantidadPujas($item_id){
         global $con;
         $count_pujas_sql = SQL_COUNT_PUJAS." $item_id;";
         $pujas_result = mysqli_query($con, $count_pujas_sql);
@@ -136,7 +163,7 @@
     /**
      * Función para obtener el precio maximo de una puja en base al id de item
      */
-    function precioMaximo($item_id){
+    function getPrecioMaximo($item_id){
         global $con;
         $precio_sql = SQL_PRECIOPARTIDA_ITEMS." $item_id";
         $precio_result = mysqli_query($con, $precio_sql);
@@ -161,7 +188,7 @@
     /**
      * Función para modificar la fecha de fin de puja
      */
-    function fechaFinPuja($item_id){
+    function getFechaFinPuja($item_id){
         global $con;
         $fecha_sql = SQL_FECHAFIN_ITEMS." $item_id";
         $fecha_result = mysqli_query($con, $fecha_sql);
@@ -219,10 +246,11 @@
     /**
      * Función para obtener el id de usuario por username
      */
-    function idUsuario($nombre){
+    function getIdUsuario($nombre){
         global $con;
         $usu_sql = SQL_ID_FROM_USUARIOS_BY_USERNAME."'$nombre';";
         $usu_result = mysqli_query($con, $usu_sql);
+        $id;
         while($usu_row = mysqli_fetch_assoc($usu_result)){
             $id = $usu_row['id'];
         }
@@ -232,7 +260,7 @@
      /**
      * Función para obtener el nombre de usuario por id
      */
-    function nombreUsuario($id_usuario){
+    function getNombreUsuario($id_usuario){
         global $con;
         $usu_sql = SQL_NOMBRE_FROM_USUARIOS_BY_ID."'$id_usuario';";
         $usu_result = mysqli_query($con, $usu_sql);
@@ -245,7 +273,7 @@
      /**
      * Función para obtener el id de categoria por nombre de categoria
      */
-    function idCategoria($nombre){
+    function getIdCategoria($nombre){
         global $con;
         $nombre = strtolower($nombre);
         $cat_sql = SQL_ID_CATEGORIAS_BY_CATEGORIA."'$nombre';";
@@ -259,7 +287,7 @@
      /**
      * Función para obtener el id de item por nombre
      */
-    function idItem($nombre){
+    function getIdItem($nombre){
         global $con;
         $item_sql = SQL_ID_ITEMS_BY_NOMBRE."'$nombre';";
         $item_result = mysqli_query($con, $item_sql);
@@ -272,10 +300,11 @@
      /**
      * Función para obtener el nombre en base al id de items
      */
-    function nombreItem($id){
+    function getNombreItem($id){
         global $con;
         $item_sql = SQL_NOMBRE_ITEMS_BY_ID."'$id';";
         $item_result = mysqli_query($con, $item_sql);
+        
         while($item_row = mysqli_fetch_assoc($item_result)){
             $nombre = $item_row['nombre'];
         }
@@ -287,7 +316,7 @@
      */
     function insertarPuja($id_item, $usuario, $cantidad){
         global $con;
-        $id_user = idUsuario($usuario);
+        $id_user = getIdUsuario($usuario);
         $fecha = date("Y-m-d");
         $insert_sql = SQL_INSERT_PUJAS."NULL, '$id_item', '$id_user', '$cantidad', '$fecha');";
         mysqli_query($con, $insert_sql);
@@ -297,9 +326,9 @@
      /**
      * Función para contar el numeroo de pujas en basae a la fecha, id item e id usuario
      */
-    function pujasUsuario($id_item, $usuario){
+    function getPujasUsuario($id_item, $usuario){
         global $con;
-        $id_user = idUsuario($usuario);
+        $id_user = getIdUsuario($usuario);
         $contar_sql = SQL_COUNT_PUJAS_BY_FECHAS." and id_item = '$id_item' and id_user = '$id_user');";
         $contar_result = mysqli_query($con, $contar_sql);
         while($contar_row = mysqli_fetch_assoc($contar_result)){
@@ -355,15 +384,15 @@
     }
 
      /**
-     * Función para verificar el formulario de nuevo item
+     * Función para validar el formulario de nuevo item
      */
-    function verificarNuevoItem($nombre, $descripcion, $precio, $fecha){
+    function validarNuevoItem($nombre, $descripcion, $precio, $fecha){
         $mensaje_error = "";
-        if($fecha < time()) $mensaje_error .= "<p>* Fecha incorrecta</p>";
-        if(empty($nombre)) $mensaje_error .= "<p>* El campo nombre no puede estar vacío</p>";
-        if(empty($descripcion)) $mensaje_error .= "<p>* El campo descripcion no puede estar vacío</p>";
-        if(empty($precio)) $mensaje_error .= "<p>* El campo precio no puede estar vacío</p>";
-        if(!is_numeric($precio)) $mensaje_error .= "<p>* El precio debe ser un número</p>";
+        if($fecha < time()) $mensaje_error .= "<p>* ".MSJ_VALIDACION_ERROR_FECHA."</p>";
+        if(empty($nombre)) $mensaje_error .= "<p>* ".MSJ_VALIDACION_ERROR_NOMBRE."</p>";
+        if(empty($descripcion)) $mensaje_error .= "<p>* ".MSJ_VALIDACION_ERROR_DESCRIPCION."</p>";
+        if(empty($precio)) $mensaje_error .= "<p>* ".MSJ_VALIDACION_ERROR_PRECIO."</p>";
+        if(!is_numeric($precio)) $mensaje_error .= "<p>* ".MSJ_VALIDACION_ERROR_PRECIO_NUM."</p>";
         return $mensaje_error;
     }
 
@@ -378,12 +407,22 @@
         if(mysqli_errno($con)) die(mysqli_error($con)); 
     }
 
+    function existeItemCategoriaNombre( $nombre,$id_categoria){
+        global $con;
+
+        $count_sql = SQL_ID_ITEMS." where id_cat='$id_categoria' and nombre= '$nombre'";
+        $resultado=mysqli_query($con, $count_sql);
+        if(mysqli_errno($con)) die(mysqli_error($con)); 
+
+        return mysqli_num_rows($resultado)>0;
+    }
+
     /**
      * Función para TODO-COMPROBAR FUNCIONAMieNTO
      */
     function esDuenio($usuario, $id_item){
         global $con;
-        $id_usuario = idUsuario($usuario);
+        $id_usuario = getIdUsuario($usuario);
         $duenio_sql = SQL_COUNT_ITEMS." where id_user = '$id_usuario' and id = $id_item;";
         $duenio_result = mysqli_query($con, $duenio_sql);
         while($duenio_row = mysqli_fetch_assoc($duenio_result)){
@@ -412,7 +451,7 @@
      */
     function posponer($tiempo, $id_item){
         global $con;
-        $fecha = fechaFinPuja($id_item);
+        $fecha = getFechaFinPuja($id_item);
         $fecha = new DateTime($fecha);
         $fecha -> modify("+ 1 $tiempo");
         $nueva_fecha = $fecha -> format('Y-m-d H:i:s');
@@ -421,23 +460,31 @@
     }
 
      /**
-     * Función para obtener de la imagen
+     * Función para obtener el nombre de la imagen
+     * recupera el nombre completo de BD y si ya existe uno 
+     * reestructura el nombre para añadirle un sufijo numerico
      */
-    function nombreImagen($nombre_img, $id_item){
+    function getNombreImagen($nombre_img_orig, $id_item){
         global $con;
-        $partir_nombre = explode(".", $nombre_img);
+        $partir_nombre = explode(".", $nombre_img_orig);
         $nombre = $partir_nombre[0];
         $extension = $partir_nombre[1];
         $arr_nombres = [];
+        
+        //Buscamos la imagen en BD
         $imagen_sql = "select imagen from imagenes where imagen like '$nombre%.$extension' and id_item = $id_item;";
         $imagen_result = mysqli_query($con, $imagen_sql);
+        
+        //En base al resultado se crea un array con nombre y extension por separado
         while($imagen_row = mysqli_fetch_assoc($imagen_result)){
             $nombre_parecido = $imagen_row['imagen'];
             array_push($arr_nombres, $nombre_parecido);
         }
+        //Si el array de nombres esta vacio, se mantiene el original
         if(count($arr_nombres) == 0){
-            $nombre_final = $nombre_img;
+            $nombre_final = $nombre_img_orig;
         }
+        //Si no, se trata la codificación añadiendo un sufijo numerico tras el nombre y antes de la extension
         else {
             $arr_numeros = [];
             foreach($arr_nombres as $nom){
@@ -476,7 +523,7 @@
      */
     function eliminarImagenBBDD($ruta){
         global $con;
-        $eliminar_sql = SQL_DELETE_IMAGENES_BY_IMAGEN."'$ruta'";
+        $eliminar_sql = SQL_DELETE_IMAGENES_BY_IMAGEN." '$ruta'";
         mysqli_query($con, $eliminar_sql);
     }
 
@@ -488,10 +535,26 @@
         unlink($ruta_completa);
     }
 
+         /**
+     * Función para eliminar la imagen de la ruta de local
+     */
+    function existeImagen( $nombre_imagen, $id_item){
+        global $con;
+
+        $imagen_sql = "select imagen from imagenes where imagen like '$nombre_imagen%' and id_item = $id_item;";
+        $imagen_result = mysqli_query($con, $imagen_sql);
+       
+        if(mysqli_num_rows($imagen_result) != 0){
+            return true;
+        }
+       
+        return false;
+    }
+
     /**
      * Función para obtener el listado de subastas vencidas
      */
-    function subastasVencidas(){
+    function getSubastasVencidas(){
         global $con;
         $arr_subastas = [];
         $fecha = new DateTime();
@@ -509,7 +572,7 @@
      /**
      * Función para obtener el valor maximo de la puja
      */
-    function pujaMaxima($id_item){
+    function getPujaMaxima($id_item){
         global $con;
         $puja_sql = SQL_IDUSER_CATIDAD_PUJAS_BY_IDITEM." $id_item and cantidad = (".SQL_MAX_CANTIDAD_PUJAS_BY_IDITEM." $id_item);";
         $puja_result = mysqli_query($con, $puja_sql);
@@ -582,9 +645,9 @@
     }
 
     /**
-     * Función paraobtener el listado de subastas a punto de vencer
+     * Función para obtener el listado de subastas a punto de vencer
      */
-    function subastasAPuntoVencer(){
+    function getSubastasAPuntoVencer(){
         global $con;
         $arr_subastas = [];
         $fecha = new DateTime();
@@ -603,7 +666,7 @@
     /**
      * Función para obtener el precio de un item en base al id de item
      */
-    function precioItem($id_item){
+    function getPrecioItem($id_item){
         global $con;
         $precio_sql = SQL_PRECIOPATIDA_ITEMS_BY_ID."$id_item;";
         $precio_result = mysqli_query($con, $precio_sql);
@@ -616,7 +679,7 @@
     /**
      * Función para lobtener la fecha y hora de vencimiento de un item en base a su id
      */
-    function venceEn($id_item){
+    function getFechaVencimiento($id_item){
         global $con;
         $vence_sql = SQL_FECHAFIN_ITEMS_BY_ID." $id_item;";
         $vence_result = mysqli_query($con, $vence_sql);
@@ -649,5 +712,16 @@
         return $vence;
     }
 
+    function sigueSubastaEnActivo($fecha){
+
+        $strFechaFin=strtotime($fecha);
+        $strFechaActual=strtotime(date("d-m-Y H:i:00",time()));
+
+        if($strFechaFin >  $strFechaActual)
+            return true;
+        else
+            return false;
+
+    }
 
     ?>

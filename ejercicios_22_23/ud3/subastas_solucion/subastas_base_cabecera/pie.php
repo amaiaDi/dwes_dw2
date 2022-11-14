@@ -1,3 +1,6 @@
-
+                <!-- Cierra Div Main -->
+                </div>
+        <!-- Cierra Div Container -->
         </div>
-   </div>
+   </body>
+</html>

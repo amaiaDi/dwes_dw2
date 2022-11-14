@@ -4,12 +4,12 @@
      */
     require("cabecera.php");
     $_SESSION['pagina_anterior'] =  $_SERVER["REQUEST_URI"]; 
-    $items_vencer = subastasAPuntoVencer();
+    $items_vencer = getSubastasAPuntoVencer();
     $seleccion_items = [];
     foreach($items_vencer as $id => $nombre){
-        $precio_max = precioMaximo($id);
-        $precio = precioItem($id);
-        if(cantidadPujas($id) == 0){
+        $precio_max = getPrecioMaximo($id);
+        $precio = getPrecioItem($id);
+        if(getCantidadPujas($id) == 0){
             $seleccion_items[$id] = $nombre;
         }
         elseif (($precio * 1.10) >= $precio_max){
@@ -33,7 +33,7 @@
                     array_push($_SESSION['anuncios']['web'], $guardar);
                 }
                 elseif($recibido === "email"){
-                    $nombre_item = nombreItem($id_item);
+                    $nombre_item = getNombreItem($id_item);
                     $guardar = $_POST['anunciante'] . ";" . $id_item . ";" . $nombre_item;
                     array_push($_SESSION['anuncios']['email'], $guardar);
                 }
@@ -56,7 +56,7 @@
                     $partes = explode(";", $dir);
                     $email = $partes[0];
                     $id = $partes[1];
-                    $nombre = nombreItem($id);       
+                    $nombre = getNombreItem($id);       
                     $enlace="http://localhost/dwes/ud3%20-%20BBDD/subastas/itemdetalles.php?item_id=$id&item_nombre=$nombre";  
 
                     $mens=<<<MAIL
@@ -107,7 +107,7 @@
             <?php
                     
                     foreach($seleccion_items as $id => $nombre){
-                        $vence = venceEn($id);
+                        $vence = getFechaVencimiento($id);
                         $nom = $nombre;
                         ?>
                         <form action=<?php echo "publi.php?item_id=$id";?> method='post'>

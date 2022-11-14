@@ -153,3 +153,7 @@ td {
 .btn-enviar {
     width: 100%;
 }
+
+#td_derecha {
+    text-align: right;
+}
