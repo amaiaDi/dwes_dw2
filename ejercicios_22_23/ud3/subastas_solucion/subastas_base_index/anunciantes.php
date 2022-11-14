@@ -106,7 +106,7 @@
         $nom = $nombre;
     ?>
         <tr>
-            <form action='<?php echo 'index.php?ira=anunciantes&id_item='.$id_item_anun?>' method='post'>
+            <form action="<?php echo 'index.php?ira=anunciantes&id_item='.$id_item_anun?>" method='post'>
                 <td><?php echo $nombre;?></td>
                 <td><?php echo $vence;?></td>
                 <td><input type='text' name='anunciante' value='<?= $id_item==$id_item_anun?$anunciante:''?>'></td>

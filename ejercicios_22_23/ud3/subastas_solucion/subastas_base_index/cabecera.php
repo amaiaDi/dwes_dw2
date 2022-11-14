@@ -6,7 +6,7 @@
     
     //incluimos elementos de configuracion, gestion de BD y libreria de la aplicacion
     require_once "config.php";
-    require_once "gestionBD_ioo.php";
+    require_once "gestionBD_ip.php";
     require_once "libreria_subastas.php";
     
     //creamos la conexión mediante el metodo que existe en la libreria de gestionBD
