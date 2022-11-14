@@ -107,7 +107,7 @@
         $nom = $nombre;
     ?>
         <tr>
-            <form action='<?php echo 'publi.php?item_id='.$id_item_anun?>' method='post'>
+            <form action='<?php echo 'anunciantes.php?item_id='.$id_item_anun?>' method='post'>
                 <td><?php echo $nombre;?></td>
                 <td><?php echo $vence;?></td>
                 <td><input type='text' name='anunciante' value='<?= $id_item==$id_item_anun?$anunciante:''?>'></td>
@@ -125,7 +125,7 @@
     ?>
     <tr>
         <td colspan="5">
-            <form action='<?php echo 'publi.php'?>' method='post'>
+            <form action='<?php echo 'anunciantes.php'?>' method='post'>
                 <input type="submit" value="ENVIAR ANUNCIOS" name="enviar_anuncios" class="btn-enviar">
             </form>
         </td>
