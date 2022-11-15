@@ -4,15 +4,20 @@
 	- Mantener interfaces de BBDD - I.procedimiental, I.orientada a objetos
 	- envío email
 	- Cuidado con mensajes a pantalla de prueba - se pueden quedar olvidados
-	-Cuidado al pasar información por la url mediante get, sobre todo infor qu tenga espacios
+	- Cuidado al pasar información por la url mediante get, sobre todo infor qu tenga espacios
 
 ***ASPECTO DE CABECERA, BARRA Y MAIN***
 ** DOS FORMAS DE HACERLO:
 
- - index.php siempre tiene el contenido HTML + un añadido a a url como paarametro "ira" para condicionar lo que carga en el main
- - llamamos a cada fichero php que nos interesee y le precargamos la cabecera.php y pie.php para que mantengan la estructura y el bloque HTML lo ponemos en un único sitio en la cabecera **Cudiado aqui no cargar HTML en el resto de paginas HTML
+	- index.php siempre tiene el contenido HTML + un añadido a a url como paarametro "ira" para condicionar lo que carga en el main
+	- llamamos a cada fichero php que nos interesee y le precargamos la cabecera.php y pie.php para que mantengan la estructura y el bloque HTML lo ponemos en un único sitio en la cabecera **Cudiado aqui no cargar HTML en el resto de paginas HTML
+** Formas de escribir el HTML en ficheros php:
+	- tag de HTML y etiquetas de php entre medias -> 
+	- escribir todo el HTML con echos entr etiquetas php -> cuidado con el uso de las variables dentro y las ' y "
+
 
 ***CONSULTAS DE BASE DE DATOS***
+-- Cuidado con crear metodos y consultas distintas en cada fichero en lugar de unificar (mejora corrección de errores y optimimzación de codigo)
 --Elegir una interfaz y mantenerla en todo el proyecto IP o IOO
 --Si tiene mas de 1 imagen hay que limitarlo
 select it.id, it.id_user, it.nombre, it.preciopartida as pp, it.fechafin, 
@@ -21,16 +26,76 @@ select it.id, it.id_user, it.nombre, it.preciopartida as pp, it.fechafin,
 (select round(max(cantidad),2) from ud03.pujas where id_item = it.id) as cantidad 
 from ud03.items it where now() < it.fechafin;
 
+-- No es necesario cerrar las conexiones de BD en php xq las cierra automaticamente el sistema al terminar el script php que la ha abierto
+    $st -> close();
+    $conn -> close();
+	
+-- COUNT(*), MAX(*) -> para identificarlos en la recuperacion de los datos ponerle un alias => COUNT(*) as contador
+
+--INSERTs -> Si esta definida como autoincremental no hace falta incluir el ID en la definición del INSERT, si se hace se pondrá a null para que lo cargue la BD
+
+-- Si el codigo de las funciones de BD se repite o es practicamente igual, utilizar los metodos genericos o intentar que sean los mas gnericos posibles 
+
 ****OPTIMIZACION DE CODIGO O CODIGO MAS EFECTIVO Y CON MENOR CARGA PARA SERVIDOR / BUENAS PRACTICAS ****
 
-  while($item_row = mysqli_fetch_assoc($resultusr)){
-  }
+-- MENOS OPTimo - Mas coste de recursos
   
-
-****CUIDADO CON LAS SIGUIENTES CONSTRUCCIONES DE CONDICIONES
+  -- llamada a metodos en bucles
+   while($+ = mysqli_fetch_assoc($resultusr)){
+   }
+  
+   while($fila = mysqli_fetch_assoc(dameItem($con, $_GET["idItem"]))){ 
+ 
+--MEJOR 
+   $resulHistorialSQL = mysqli_query($conn, $consultaHistorialSQL);
+            foreach ($resulHistorialSQL as $historial) {
+			
+****CUIDADO CON LAS SIGUIENTES CONSTRUCCIONES
+-> En ocasiones controlar el contenido de una variable guardada en un elemento como $_GET, $_POST. $_SESSION no es suficiente. Este metodo nos indica si la variable existe, pero NO si está vacia
 -> Que pasa si $usuario existe pero esta vacio?
 	if(isset($usuario) && esDuenio($usuario, $item_id)){ -> 
 -> Cuidado con utilizar variables locales que hacen referencia a variabbles globales
  EJ. Variable global $usuario relleno cuando nos logueamos con usuario a registrar no existente en la BD y que debe comprobarse si existe en el fichero de registro
--> Mantener omogeneidad en la mustra de mensajes, si se muestran abajo siempre abajo, en todas las pantallas
+-> Mantener homogeneidad en la mustra de mensajes, si se muestran abajo siempre abajo, en todas las pantallas y de la misma forma, color, tamaño...
  
+-> Operadores de comparación: === vs ==
+== (o !=) compara el valor, mientras que === (o !==) compara el valor y el tipo.
+
+****************************************
+BUENAS PRACTICAS´***********************
+****************************************
+-- No usar funciones dentro de bucles de conteo, precalcular el tamaño de los mismos
+<?php $total = count($miArray);
+for ($i = 0; $i < $total; $i++)
+--Realizar depuraciones de código
+Un problema con PHP es que, por defecto, si encuentra mensajes de error no fatales sólo se les de salida junto con el resto de su producción, lo que significa que muy a menudo no se dan cuenta de los errores.
+
+--No emplear etiquetas cortas
+Para que el intérprete de PHP ejecute un código, éste ha de estar delimitado por las etiquetas de apertura y cierre de PHP: <?php ?>. Si en la configuración de PHP de nuestro servidor (archivo php.ini) se permite el uso de etiquetas cortas (<? ?>) -> CUIDADO AL CAMBIAR DE SERVIDOR
+
+--Concatenación de cadenas, comillas simples(') vs comillas dobles(")
+Cuando trabajes con cadenas, evita siempre el uso de comillas dobles. La razón es que PHP analiza el contenido de las comillas dobles en búsqueda de variables que deban ser interpretadas, resultando en un tiempo de ejecución mayor.
+
+--Al iterar arrays, fija el valor máximo fuera del bucle
+Cada llamada al método count() aumenta hasta en un 50% el tiempo de ejecución, según el tamaño del array.
+	// mal
+	for ($i = 0, $i < count($miArray); $i++){
+	   ... 
+	}
+	// bien
+	$limite = count($miArray);
+	for ($i = 0; $i < $limite; $i++){
+		...
+	}
+	
+-- Mantén las opciones de configuración en un archivo -> ACCESO Y MODIFICACIÓN MAS RAPIDA
+
+-- Minimiza el número de variables globales siempre que puedas
+Operar con variables globales es en torno a un 200% más costoso que hacerlo con locales.
+-- No implementes todas las estructuras de datos como objetos
+Los array son más rápidos y consumen menos memoria que instanciar un objeto.
+-- Minimiza el número de consultas a la base de datos
+Realizar una consulta es costosa en términos temporales. En todas aquellas ocasiones en que los datos no vayan a cambiar con mucha frecuencia, es interesante realizar una única vez la consulta y almacenar el resultado de ésta en un archivo de texto plano.
+-- isset()
+La función isset() (isSet) resulta de una utilidad tremenda. Nos sirve tanto para saber si una determinada variable ha sido inicializada como para comprobar que un índice existe 
+
