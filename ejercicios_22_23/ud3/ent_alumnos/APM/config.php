@@ -3,9 +3,9 @@
     define("DB_HOST","localhost" );
     define("DB_USER", "root");
     define("DB_PASS", "");
-    define("DB_DATABASE", "ud03"); 
+    define("DB_DATABASE", "subastas"); 
     $nombreforo = "SUBASTAS DEWS";
-    $rutabase = "C:\wamp\www\DEWS_BD\subastas";
+    $rutabase = "C:\wamp\www\dwes\ejercicios_22_23\ud3\ent_alumnos\CFOG\Subastas";
     $monedalocal = "euro";
     $img = "img/";
     $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_DATABASE);   
