@@ -88,7 +88,7 @@
      */
     function insertarUsuario($usuario, $nombre, $pass, $email, $cadena){
         global $con;
-        $insert_sql = SQL_INSERT_USUARIO." NULL, '$usuario', '$nombre', '$pass', '$email', '$cadena', '0', '1');";
+        $insert_sql = SQL_INSERT_USUARIO." NULL, '$usuario', '$nombre', '$pass', '$email', '$cadena', '0');";
         mysqli_query($con, $insert_sql);
         if(mysqli_errno($con)) die(mysqli_error($con)); 
     }
