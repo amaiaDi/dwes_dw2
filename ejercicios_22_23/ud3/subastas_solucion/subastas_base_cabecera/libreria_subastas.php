@@ -55,7 +55,7 @@
             $mail_verif = $mail_row['email'];
             $cad_verif = $mail_row['cadenaverificacion'];
         }
-        if($mail == $mail_verif && $cadena_verif == $cad_verif){
+        if(strcmp($mail ,$mail_verif)==0 && strcmp($cadena_verif , $cad_verif)==0){
             return true;
         }
         return false;

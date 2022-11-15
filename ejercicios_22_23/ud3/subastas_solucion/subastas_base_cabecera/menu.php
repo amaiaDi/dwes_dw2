@@ -11,7 +11,7 @@
         echo "<a href='nuevoitem.php'> ".TITULO_MENU_NUEVO_ITEM." </a>";
         if($usuario == USUARIO_ADMIN){
             echo "<a href='vencidas.php'> ".TITULO_MENU_SUBASTAS_VENCIDAS." </a>";
-            echo "<a href='Publi.php'> ".TITULO_MENU_ANUNCIANTES." </a>";
+            echo "<a href='anunciantes.php'> ".TITULO_MENU_ANUNCIANTES." </a>";
         }
         echo "<a href='logout.php'> ".TITULO_MENU_LOGOUT." ($usuario)</a>";
     }else {
