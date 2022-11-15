@@ -101,7 +101,7 @@ const SQL_MAX_CANTIDAD_PUJAS_BY_IDITEM= "select max(cantidad) from pujas where i
 const SQL_INSERT_PUJAS="INSERT INTO pujas (id, id_item, id_user, cantidad, fecha) VALUES (";
 const SQL_INSERT_IMAGES="INSERT INTO imagenes values ";
 const SQL_INSERT_ITEMS="INSERT INTO items (id, id_cat, id_user, nombre, preciopartida, descripcion, fechafin) VALUES ( ";
-const SQL_INSERT_USUARIO="INSERT INTO usuarios (id, username, nombre, password, email, cadenaverificacion, activo, falso) VALUES (";
+const SQL_INSERT_USUARIO="INSERT INTO usuarios (id, username, nombre, password, email, cadenaverificacion, activo) VALUES (";
 
 const SQL_DELETE_ITEMS_BY_ID="DELETE FROM items WHERE id = ";
 const SQL_DELETE_PUJAS_BY_ID="DELETE FROM pujas WHERE id = ";
